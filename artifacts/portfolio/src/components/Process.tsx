@@ -48,7 +48,7 @@ export default function Process() {
               transition={{ duration: 0.6, delay: i * 0.15 }}
               className="relative"
             >
-              <div className="w-16 h-16 rounded-full bg-background border border-primary/40 flex items-center justify-center font-mono text-primary text-xl mb-8 relative z-10 shadow-[0_0_20px_rgba(245,158,11,0.1)]">
+              <div className="w-16 h-16 rounded-full bg-background border border-primary/40 flex items-center justify-center font-mono text-primary text-xl mb-8 relative z-10 shadow-[0_4px_24px_-8px_hsl(var(--primary)/0.15)]">
                 {step.id}
               </div>
               <h3 className="text-2xl font-mono tracking-tighter text-foreground mb-4">{step.title}</h3>

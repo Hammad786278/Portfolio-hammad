@@ -39,7 +39,7 @@ function ParticleField(props: any) {
   return (
     <group rotation={[0, 0, Math.PI / 4]}>
       <Points ref={ref} positions={sphere as Float32Array} stride={3} frustumCulled={false} {...props}>
-        <PointMaterial transparent color="#f59e0b" size={0.003} sizeAttenuation={true} depthWrite={false} opacity={0.6} />
+        <PointMaterial transparent color="#dccab0" size={0.003} sizeAttenuation={true} depthWrite={false} opacity={0.6} />
       </Points>
     </group>
   );
@@ -71,7 +71,7 @@ function DistortedCore() {
         roughness={0.4}
         metalness={0.9}
         wireframe={true}
-        emissive="#f59e0b"
+        emissive="#dccab0"
         emissiveIntensity={0.2}
       />
     </Sphere>
@@ -110,8 +110,8 @@ export default function Hero() {
             >
               <Suspense fallback={null}>
                 <ambientLight intensity={0.2} />
-                <directionalLight position={[10, 10, 5]} intensity={1} color="#f59e0b" />
-                <directionalLight position={[-10, -10, -5]} intensity={0.5} color="#ea580c" />
+                <directionalLight position={[10, 10, 5]} intensity={1} color="#dccab0" />
+                <directionalLight position={[-10, -10, -5]} intensity={0.5} color="#b8a596" />
                 <ParticleField />
                 <DistortedCore />
               </Suspense>
@@ -168,7 +168,7 @@ export default function Hero() {
             <div className="flex flex-col sm:flex-row gap-6 mt-4">
               <a
                 href="#projects"
-                className="px-8 py-4 bg-primary text-primary-foreground font-mono text-sm tracking-widest uppercase hover:bg-primary/90 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(245,158,11,0.3)] transition-all duration-300"
+                className="px-8 py-4 bg-primary text-primary-foreground font-mono text-sm tracking-widest uppercase hover:bg-primary/90 hover:scale-[1.02] hover:shadow-[0_8px_30px_-12px_hsl(var(--foreground)/0.25)] transition-all duration-300"
               >
                 &gt; Execute Projects
               </a>

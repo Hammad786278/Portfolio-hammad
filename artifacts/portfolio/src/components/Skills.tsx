@@ -62,8 +62,8 @@ function Constellation() {
         <group key={i} position={NODE_POSITIONS[i]}>
           <Sphere args={[0.3, 16, 16]}>
             <meshStandardMaterial 
-              color="#f59e0b" 
-              emissive="#f59e0b"
+              color="#dccab0" 
+              emissive="#dccab0"
               emissiveIntensity={0.5}
               roughness={0.2} 
               metalness={0.8}
@@ -82,12 +82,12 @@ function Constellation() {
         </group>
       ))}
 
-      <Line points={[NODE_POSITIONS[0], NODE_POSITIONS[1]]} color="#ea580c" lineWidth={1} transparent opacity={0.3} />
-      <Line points={[NODE_POSITIONS[0], NODE_POSITIONS[2]]} color="#ea580c" lineWidth={1} transparent opacity={0.3} />
-      <Line points={[NODE_POSITIONS[1], NODE_POSITIONS[3]]} color="#ea580c" lineWidth={1} transparent opacity={0.3} />
-      <Line points={[NODE_POSITIONS[2], NODE_POSITIONS[4]]} color="#ea580c" lineWidth={1} transparent opacity={0.3} />
-      <Line points={[NODE_POSITIONS[3], NODE_POSITIONS[4]]} color="#ea580c" lineWidth={1} transparent opacity={0.3} />
-      <Line points={[NODE_POSITIONS[1], NODE_POSITIONS[4]]} color="#ea580c" lineWidth={1} transparent opacity={0.1} />
+      <Line points={[NODE_POSITIONS[0], NODE_POSITIONS[1]]} color="#b8a596" lineWidth={1} transparent opacity={0.3} />
+      <Line points={[NODE_POSITIONS[0], NODE_POSITIONS[2]]} color="#b8a596" lineWidth={1} transparent opacity={0.3} />
+      <Line points={[NODE_POSITIONS[1], NODE_POSITIONS[3]]} color="#b8a596" lineWidth={1} transparent opacity={0.3} />
+      <Line points={[NODE_POSITIONS[2], NODE_POSITIONS[4]]} color="#b8a596" lineWidth={1} transparent opacity={0.3} />
+      <Line points={[NODE_POSITIONS[3], NODE_POSITIONS[4]]} color="#b8a596" lineWidth={1} transparent opacity={0.3} />
+      <Line points={[NODE_POSITIONS[1], NODE_POSITIONS[4]]} color="#b8a596" lineWidth={1} transparent opacity={0.1} />
     </group>
   );
 }
@@ -106,7 +106,7 @@ export default function Skills() {
             <Canvas camera={{ position: [0, 0, 8], fov: 45 }}>
               <Suspense fallback={null}>
                 <ambientLight intensity={0.5} />
-                <pointLight position={[10, 10, 10]} intensity={1} color="#f59e0b" />
+                <pointLight position={[10, 10, 10]} intensity={1} color="#dccab0" />
                 <Constellation />
               </Suspense>
             </Canvas>

@@ -33,7 +33,7 @@ function BackgroundWireframe() {
   return (
     <Icosahedron ref={meshRef} args={[3, 1]} position={[2, 0, -2]}>
       <meshBasicMaterial
-        color="#f59e0b"
+        color="#dccab0"
         wireframe={true}
         transparent={true}
         opacity={0.05}

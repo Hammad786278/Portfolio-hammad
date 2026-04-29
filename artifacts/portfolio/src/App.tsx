@@ -9,14 +9,20 @@ import Portfolio from "@/pages/portfolio";
 const queryClient = new QueryClient();
 
 function CustomCursor() {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [enabled, setEnabled] = useState(false);
+  const [position, setPosition] = useState({ x: -100, y: -100 });
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
+    const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    if (!fine) return;
+    setEnabled(true);
+    document.body.classList.add("has-custom-cursor");
+
     const updatePosition = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
     };
-    
+
     const updateHoverState = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const isInteractive = target.closest('a, button, input, textarea, select, [role="button"]');
@@ -29,25 +35,31 @@ function CustomCursor() {
     return () => {
       window.removeEventListener("mousemove", updatePosition);
       window.removeEventListener("mouseover", updateHoverState);
+      document.body.classList.remove("has-custom-cursor");
     };
   }, []);
 
+  if (!enabled) return null;
+
   return (
     <>
-      <div 
-        id="custom-cursor-glow" 
-        style={{ 
-          left: `${position.x}px`, 
-          top: `${position.y}px` 
-        }} 
-      />
-      <div 
-        id="custom-cursor" 
+      <div
+        id="custom-cursor-glow"
         className={isHovering ? "hovering-interactive" : ""}
-        style={{ 
-          left: `${position.x}px`, 
-          top: `${position.y}px` 
-        }} 
+        style={{
+          transform: `translate(${position.x}px, ${position.y}px) translate(-50%, -50%) scale(${isHovering ? 1.6 : 1})`,
+          left: 0,
+          top: 0,
+        }}
+      />
+      <div
+        id="custom-cursor"
+        className={isHovering ? "hovering-interactive" : ""}
+        style={{
+          transform: `translate(${position.x}px, ${position.y}px) translate(-50%, -50%)`,
+          left: 0,
+          top: 0,
+        }}
       />
     </>
   );

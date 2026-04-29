@@ -34,11 +34,11 @@ function RotatingKnot() {
   return (
     <TorusKnot ref={meshRef} args={[1, 0.3, 100, 16]}>
       <meshStandardMaterial 
-        color="#f59e0b"
+        color="#dccab0"
         roughness={0.2}
         metalness={0.8}
         wireframe={true}
-        emissive="#ea580c"
+        emissive="#b8a596"
         emissiveIntensity={0.2}
       />
     </TorusKnot>
@@ -69,7 +69,7 @@ export default function Contact() {
             <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
               <Suspense fallback={null}>
                 <ambientLight intensity={0.5} />
-                <directionalLight position={[10, 10, 5]} intensity={1} color="#f59e0b" />
+                <directionalLight position={[10, 10, 5]} intensity={1} color="#dccab0" />
                 <RotatingKnot />
               </Suspense>
             </Canvas>

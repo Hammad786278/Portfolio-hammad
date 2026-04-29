@@ -82,46 +82,52 @@
 }
 
 .dark {
-  --background: 240 10% 4%;
-  --foreground: 0 0% 98%;
+  --background: 230 12% 6%;
+  --foreground: 30 20% 94%;
 
-  --card: 240 10% 6%;
-  --card-foreground: 0 0% 98%;
-  --card-border: 38 92% 60% / 0.1;
+  --card: 230 12% 8%;
+  --card-foreground: 30 20% 94%;
+  --card-border: 35 25% 70% / 0.08;
 
-  --popover: 240 10% 6%;
-  --popover-foreground: 0 0% 98%;
-  --popover-border: 38 92% 60% / 0.1;
+  --popover: 230 12% 8%;
+  --popover-foreground: 30 20% 94%;
+  --popover-border: 35 25% 70% / 0.08;
 
-  --primary: 38 92% 60%;
-  --primary-foreground: 240 10% 4%;
+  --primary: 35 32% 78%;
+  --primary-foreground: 230 12% 6%;
 
-  --secondary: 18 95% 55%;
-  --secondary-foreground: 0 0% 98%;
+  --secondary: 20 18% 65%;
+  --secondary-foreground: 230 12% 6%;
 
-  --muted: 240 10% 12%;
-  --muted-foreground: 240 5% 65%;
+  --muted: 230 10% 13%;
+  --muted-foreground: 30 8% 62%;
 
-  --accent: 38 92% 60%;
-  --accent-foreground: 240 10% 4%;
+  --accent: 35 32% 78%;
+  --accent-foreground: 230 12% 6%;
 
-  --destructive: 0 84% 60%;
+  --destructive: 0 60% 55%;
   --destructive-foreground: 0 0% 98%;
 
-  --border: 240 10% 15%;
-  --input: 240 10% 15%;
-  --ring: 38 92% 60%;
+  --border: 230 10% 16%;
+  --input: 230 10% 16%;
+  --ring: 35 32% 78%;
 }
 
 @layer base {
   * {
-    @apply border-border cursor-none;
+    @apply border-border;
   }
   body {
     @apply font-sans antialiased bg-background text-foreground overflow-x-hidden;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-serif tracking-tight;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    body.has-custom-cursor,
+    body.has-custom-cursor * {
+      cursor: none !important;
+    }
   }
 }
 
@@ -133,11 +139,11 @@
   content: "";
   position: fixed;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.5'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.8;
-  mix-blend-mode: overlay;
+  opacity: 0.18;
+  mix-blend-mode: soft-light;
 }
 
 html {
@@ -157,36 +163,35 @@ html {
   position: fixed;
   top: 0;
   left: 0;
-  width: 20px;
-  height: 20px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   pointer-events: none;
   z-index: 10000;
   transform: translate(-50%, -50%);
-  transition: width 0.2s, height 0.2s, background-color 0.2s;
-  mix-blend-mode: difference;
+  transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+  background-color: hsl(var(--foreground));
 }
 
 #custom-cursor-glow {
   position: fixed;
   top: 0;
   left: 0;
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, hsl(var(--primary) / 0.15) 0%, transparent 70%);
+  width: 36px;
+  height: 36px;
+  border: 1px solid hsl(var(--foreground) / 0.35);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9998;
   transform: translate(-50%, -50%);
-  transition: width 0.2s, height 0.2s;
+  transition: transform 0.18s ease, width 0.25s ease, height 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
 }
 
 .hovering-interactive #custom-cursor {
-  width: 40px;
-  height: 40px;
+  width: 6px;
+  height: 6px;
   background-color: hsl(var(--primary));
-  mix-blend-mode: normal;
-  opacity: 0.5;
+  opacity: 0.9;
 }
 
 .perspective-1000 {
