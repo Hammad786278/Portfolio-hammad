@@ -67,7 +67,7 @@ export default function Navbar() {
           className="group flex items-center gap-3 font-mono text-xl font-bold tracking-tighter"
         >
           <Terminal className="w-5 h-5 text-primary group-hover:text-secondary transition-colors duration-500" />
-          <span className="text-foreground font-serif text-2xl group-hover:text-primary transition-colors duration-500">Hammmad Hussain.</span>
+          <span className="text-foreground font-serif text-2xl group-hover:text-primary transition-colors duration-500">Hammad Hussain.</span>
           <span className="text-primary animate-pulse -ml-2">_</span>
         </a>
 
