@@ -46,21 +46,24 @@ function ParticleField(props: any) {
 }
 
 function DistortedCore() {
-  const ref = useRef<any>();
-  
+  const meshRef = useRef<any>();
+  const matRef = useRef<any>();
+
   useFrame((state) => {
-    if (ref.current) {
-      const time = state.clock.getElapsedTime();
-      ref.current.distort = 0.4 + Math.sin(time) * 0.1;
-      ref.current.rotation.x = time * 0.2;
-      ref.current.rotation.y = time * 0.3;
+    const time = state.clock.getElapsedTime();
+    if (matRef.current) {
+      matRef.current.distort = 0.4 + Math.sin(time) * 0.1;
+    }
+    if (meshRef.current) {
+      meshRef.current.rotation.x = time * 0.2;
+      meshRef.current.rotation.y = time * 0.3;
     }
   });
 
   return (
-    <Sphere args={[1, 100, 200]} scale={1.2}>
+    <Sphere ref={meshRef} args={[1, 100, 200]} scale={1.2}>
       <MeshDistortMaterial
-        ref={ref}
+        ref={matRef}
         color="#0a0a0a"
         attach="material"
         distort={0.4}
