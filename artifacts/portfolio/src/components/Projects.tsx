@@ -1,6 +1,6 @@
 import { useRef, MouseEvent } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, Github } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 
 import projectVision from "@/assets/project-vision.png";
 import projectSaas from "@/assets/project-saas.png";
@@ -11,13 +11,19 @@ const projects = [
   {
     id: "01",
     title: "OmniSight.ai",
+    role: "Lead CV Engineer",
+    year: "2024",
+    status: "PRODUCTION",
     description: "Real-time edge-device computer vision system for industrial defect detection.",
     stack: ["PyTorch", "YOLOv8", "TensorRT", "React", "FastAPI"],
     image: projectVision,
   },
   {
     id: "02",
-    title: "NeuroFlow Orchestrator",
+    title: "NeuroFlow",
+    role: "Automation Architect",
+    year: "2023",
+    status: "LIVE",
     description: "Enterprise-grade n8n workflow engine connecting 40+ microservices autonomously.",
     stack: ["n8n", "Node.js", "Docker", "PostgreSQL", "Redis"],
     image: projectN8n,
@@ -25,21 +31,38 @@ const projects = [
   {
     id: "03",
     title: "Cognitive SaaS",
+    role: "Full-Stack Dev",
+    year: "2023",
+    status: "ACQUIRED",
     description: "AI-powered document intelligence platform serving enterprise clients.",
     stack: ["Next.js", "LangChain", "OpenAI API", "Tailwind", "Prisma"],
     image: projectSaas,
   },
   {
     id: "04",
-    title: "Synapse Pipeline",
+    title: "Synapse",
+    role: "ML Engineer",
+    year: "2022",
+    status: "INTERNAL",
     description: "Distributed machine learning training pipeline with automated hyperparameter tuning.",
     stack: ["Kubernetes", "Apache Airflow", "TensorFlow", "Python"],
     image: projectMl,
+  },
+  {
+    id: "05",
+    title: "Operator",
+    role: "AI Agent Dev",
+    year: "2024",
+    status: "BETA",
+    description: "Autonomous LLM agent capable of navigating web interfaces and executing complex multi-step workflows.",
+    stack: ["Anthropic Claude", "Puppeteer", "TypeScript", "Vite"],
+    image: null,
+    bgClass: "bg-primary/10",
+    code: "PRJ_05 // OPERATOR"
   }
 ];
 
-function ProjectCard({ project, index }: { project: any; index: number }) {
-  const isEven = index % 2 === 0;
+function ProjectCard({ project }: { project: any }) {
   const cardRef = useRef<HTMLDivElement>(null);
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
@@ -51,125 +74,102 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
     
-    const rotateX = ((y - centerY) / centerY) * -5;
-    const rotateY = ((x - centerX) / centerX) * 5;
+    const rotateX = ((y - centerY) / centerY) * -2;
+    const rotateY = ((x - centerX) / centerX) * 2;
 
-    cardRef.current.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-    
-    // Glow effect following mouse
-    const glow = cardRef.current.querySelector('.glow-effect') as HTMLElement;
-    if (glow) {
-      glow.style.background = `radial-gradient(circle at ${x}px ${y}px, hsl(var(--primary) / 0.15) 0%, transparent 60%)`;
-    }
+    cardRef.current.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
   };
 
   const handleMouseLeave = () => {
     if (!cardRef.current) return;
     cardRef.current.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-    const glow = cardRef.current.querySelector('.glow-effect') as HTMLElement;
-    if (glow) {
-      glow.style.background = 'transparent';
-    }
   };
 
   return (
-    <div className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 lg:gap-24 items-center group`}>
-      {/* Image side */}
-      <motion.div
-        initial={{ opacity: 0, x: isEven ? -50 : 50, rotateY: isEven ? -10 : 10 }}
-        whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 1, ease: "easeOut" }}
-        className="w-full lg:w-3/5 perspective-1000"
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.8 }}
+      className="flex flex-col gap-8 mb-40 last:mb-0 group"
+    >
+      <div 
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        className="w-full aspect-[21/9] md:aspect-[21/9] bg-card border border-border/30 overflow-hidden relative cursor-pointer transition-transform duration-300 ease-out will-change-transform"
       >
-        <div 
-          ref={cardRef}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
-          className="relative border border-border/30 bg-card overflow-hidden shadow-2xl transition-transform duration-300 ease-out will-change-transform transform-style-3d"
-        >
-          <div className="glow-effect absolute inset-0 pointer-events-none z-20 transition-background duration-200" />
-          <div className="absolute inset-0 bg-background/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
+        {project.image ? (
           <img 
             src={project.image} 
             alt={project.title} 
-            className="w-full h-auto aspect-video object-cover grayscale-[50%] group-hover:grayscale-0 transition-all duration-700"
+            className="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700"
           />
-          <div className="absolute top-6 right-6 z-20 font-mono text-[10px] tracking-widest bg-background/80 backdrop-blur-md px-3 py-1.5 border border-primary/20 text-primary uppercase">
-            STATUS: ONLINE
+        ) : (
+          <div className={`w-full h-full ${project.bgClass} flex items-center justify-center`}>
+            <div className="font-mono text-2xl md:text-4xl text-primary/50 tracking-[0.3em] font-bold">
+              {project.code}
+            </div>
           </div>
-          
-          {/* Glowing edge on hover */}
-          <div className="absolute inset-0 border border-primary/0 group-hover:border-primary/30 transition-colors duration-500 z-30 pointer-events-none" />
-        </div>
-      </motion.div>
-
-      {/* Content side */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        className="w-full lg:w-2/5 flex flex-col justify-center"
-      >
-        <div className="font-mono text-primary text-sm font-bold mb-4 tracking-[0.2em]">
-          {project.id}_
-        </div>
-        <h3 className="text-4xl lg:text-5xl font-serif text-foreground mb-6 group-hover:text-primary transition-colors duration-500">
-          {project.title}
-        </h3>
-        <p className="text-muted-foreground text-lg mb-10 leading-relaxed font-light">
-          {project.description}
-        </p>
+        )}
+        <div className="absolute inset-0 bg-background/20 group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none" />
         
-        <div className="flex flex-wrap gap-3 mb-10">
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 pointer-events-none">
+          <div className="bg-primary text-primary-foreground px-6 py-3 font-mono text-xs uppercase tracking-widest flex items-center gap-2 rounded-full">
+            View Case <ArrowUpRight className="w-4 h-4" />
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+        <div className="md:col-span-3 flex flex-col gap-4 font-mono text-xs tracking-widest text-muted-foreground uppercase">
+          <div className="flex justify-between border-b border-border/30 pb-2">
+            <span>Year</span> <span className="text-foreground">{project.year}</span>
+          </div>
+          <div className="flex justify-between border-b border-border/30 pb-2">
+            <span>Role</span> <span className="text-foreground">{project.role}</span>
+          </div>
+          <div className="flex justify-between border-b border-border/30 pb-2">
+            <span>Status</span> <span className="text-primary">{project.status}</span>
+          </div>
+        </div>
+        
+        <div className="md:col-span-5">
+          <h3 className="text-4xl md:text-6xl font-serif text-foreground mb-6 leading-none">
+            {project.title}
+          </h3>
+          <p className="text-lg text-muted-foreground font-light text-balance">
+            {project.description}
+          </p>
+        </div>
+
+        <div className="md:col-span-4 flex flex-wrap gap-2 content-start">
           {project.stack.map((tech: string) => (
-            <span key={tech} className="px-4 py-2 bg-background border border-border/50 text-[10px] font-mono uppercase tracking-widest text-muted-foreground group-hover:border-primary/30 transition-colors duration-500">
+            <span key={tech} className="px-3 py-1.5 border border-border/50 text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
               {tech}
             </span>
           ))}
         </div>
-
-        <div className="flex gap-6">
-          <a href="#" className="flex items-center gap-3 px-6 py-3 bg-primary text-primary-foreground hover:bg-primary/90 transition-all font-mono text-xs uppercase tracking-widest hover:scale-[1.02]">
-            Live Demo <ArrowUpRight className="w-4 h-4" />
-          </a>
-          <a href="#" className="flex items-center gap-3 px-6 py-3 bg-transparent text-foreground border border-border hover:border-primary/50 transition-all font-mono text-xs uppercase tracking-widest">
-            Source <Github className="w-4 h-4" />
-          </a>
-        </div>
-      </motion.div>
-    </div>
+      </div>
+    </motion.div>
   );
 }
 
 export default function Projects() {
   return (
-    <section id="projects" className="relative w-full py-40 overflow-hidden bg-background">
-      <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-          className="mb-32 flex flex-col md:flex-row md:items-end justify-between gap-8"
-        >
-          <div>
-            <div className="font-mono text-secondary mb-6 text-xs tracking-[0.2em] uppercase">
-              ~/workspace/deployments $ ls -la
-            </div>
-            <h2 className="text-5xl md:text-7xl font-serif tracking-tight text-foreground">
-              Featured <span className="text-muted-foreground italic">Deployments</span>
-            </h2>
-          </div>
-          <a href="#" className="font-mono text-xs uppercase tracking-widest text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors pb-2 border-b border-transparent hover:border-primary/50">
-            View full repository <ArrowUpRight className="w-4 h-4" />
-          </a>
-        </motion.div>
+    <section id="projects" className="relative w-full py-40 bg-background border-t border-border/20">
+      <div className="container mx-auto px-6 max-w-7xl">
+        <div className="font-mono text-xs text-primary mb-12 tracking-[0.2em] uppercase">
+          / 05 — SELECTED WORK
+        </div>
+        
+        <h2 className="text-[clamp(3rem,8vw,8rem)] font-serif leading-none tracking-tight text-foreground mb-32">
+          Featured <span className="text-muted-foreground italic">Case Studies</span>
+        </h2>
 
-        <div className="flex flex-col gap-40">
-          {projects.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} />
+        <div className="flex flex-col">
+          {projects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
           ))}
         </div>
       </div>

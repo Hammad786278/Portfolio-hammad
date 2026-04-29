@@ -4,18 +4,34 @@ import { Menu, X, Terminal } from "lucide-react";
 
 const navLinks = [
   { name: "About", href: "#about" },
+  { name: "Services", href: "#services" },
   { name: "Skills", href: "#skills" },
   { name: "Projects", href: "#projects" },
+  { name: "Process", href: "#process" },
   { name: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+      
+      const sections = navLinks.map(link => document.querySelector(link.href));
+      const scrollPosition = window.scrollY + window.innerHeight / 3;
+
+      let currentSectionIndex = 0;
+      sections.forEach((section, index) => {
+        if (section && section instanceof HTMLElement) {
+          if (scrollPosition >= section.offsetTop) {
+            currentSectionIndex = index + 1; // +1 because hero is 0
+          }
+        }
+      });
+      setActiveSection(currentSectionIndex);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -57,25 +73,21 @@ export default function Navbar() {
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-10">
+          <div className="font-mono text-xs text-muted-foreground mr-4">
+            {String(activeSection).padStart(2, '0')} / {String(navLinks.length).padStart(2, '0')}
+          </div>
           {navLinks.map((link, i) => (
             <a
               key={link.name}
               href={link.href}
               onClick={(e) => scrollToSection(e, link.href)}
-              className="text-xs uppercase tracking-widest font-medium text-muted-foreground hover:text-primary transition-colors font-mono relative group"
+              className={`text-xs uppercase tracking-widest font-medium transition-colors font-mono relative group ${activeSection === i + 1 ? 'text-primary' : 'text-muted-foreground hover:text-primary'}`}
             >
               <span className="text-primary/40 mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">~/</span>
               {link.name}
-              <span className="absolute -bottom-2 left-0 w-0 h-px bg-primary transition-all duration-300 group-hover:w-full" />
+              <span className={`absolute -bottom-2 left-0 h-px bg-primary transition-all duration-300 ${activeSection === i + 1 ? 'w-full' : 'w-0 group-hover:w-full'}`} />
             </a>
           ))}
-          <a
-            href="#contact"
-            onClick={(e) => scrollToSection(e, "#contact")}
-            className="px-5 py-2.5 bg-background border border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground transition-all font-mono text-xs uppercase tracking-widest"
-          >
-            Init_Contact
-          </a>
         </nav>
 
         {/* Mobile Toggle */}

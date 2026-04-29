@@ -63,8 +63,7 @@ export default function Contact() {
 
   return (
     <section id="contact" className="relative w-full py-40 bg-background border-t border-border/20 overflow-hidden">
-      {/* 3D Element positioned to the right */}
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] opacity-30 pointer-events-none hidden lg:block">
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] opacity-20 pointer-events-none hidden lg:block">
         {webglOk ? (
           <WebGLBoundary fallback={<CanvasFallback />}>
             <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
@@ -80,56 +79,61 @@ export default function Contact() {
         )}
       </div>
 
-      <div className="container relative z-10 mx-auto px-6 max-w-5xl">
+      <div className="container relative z-10 mx-auto px-6 max-w-7xl">
+        <div className="font-mono text-xs text-primary mb-12 tracking-[0.2em] uppercase">
+          / 09 — INITIATE CONNECTION
+        </div>
+
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
-          className="mb-20"
+          className="mb-24"
         >
-          <div className="inline-flex items-center justify-center p-5 border border-primary/20 bg-background/50 backdrop-blur text-primary mb-10">
-            <Terminal className="w-6 h-6" />
-          </div>
-          <h2 className="text-6xl md:text-8xl font-serif tracking-tight text-foreground mb-8">
-            Initiate <span className="text-primary italic">Connection.</span>
+          <h2 className="text-[clamp(4rem,10vw,10rem)] font-serif leading-[0.8] tracking-tighter text-foreground mb-8">
+            LET'S BUILD <br/>
+            <span className="italic text-muted-foreground">SOMETHING</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl font-light leading-relaxed">
-            Currently open for new opportunities. Whether you have a question about machine learning, need a complex system built, or just want to say hi, my inbox is open.
+          <p className="text-[clamp(2rem,4vw,4rem)] font-serif italic text-primary leading-none">
+            AT THE EDGE OF WHAT'S POSSIBLE.
           </p>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, delay: 0.2 }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center"
         >
-          <div className="w-full max-w-2xl p-10 md:p-14 border border-border/40 bg-card/40 backdrop-blur-xl relative overflow-hidden group perspective-1000 transform-style-3d hover:border-primary/30 transition-colors duration-500">
-            {/* Top accent line */}
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-secondary to-primary opacity-50 group-hover:opacity-100 transition-opacity" />
-            
-            <div className="font-mono text-xs text-muted-foreground mb-12 flex items-center justify-between border-b border-border/40 pb-6 uppercase tracking-widest">
-              <span>status: <span className="text-primary animate-pulse">AVAILABLE</span></span>
-              <span>latency: 12ms</span>
-            </div>
+          <div>
+            <a
+              href="mailto:hammad@example.dev"
+              className="group relative flex items-center justify-between p-8 border border-border/40 bg-card/40 backdrop-blur-xl overflow-hidden transition-all hover:border-primary/50"
+            >
+              <div className="absolute inset-0 bg-primary/5 -translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out pointer-events-none" />
+              <div className="relative z-10 flex flex-col gap-2">
+                <span className="font-mono text-xs text-muted-foreground tracking-widest uppercase">Direct Line</span>
+                <span className="font-mono text-xl md:text-2xl text-foreground group-hover:text-primary transition-colors">hammad@example.dev</span>
+              </div>
+              <Send className="w-6 h-6 text-primary relative z-10 opacity-50 group-hover:opacity-100 group-hover:translate-x-2 transition-all duration-500" />
+            </a>
+          </div>
 
-            <div className="space-y-6">
-              <p className="font-mono text-sm text-foreground/80 mb-10 tracking-widest uppercase">
-                &gt; Ping hammad@example.dev...
-              </p>
-              <a
-                href="mailto:hammad@example.dev"
-                className="group/btn relative flex items-center justify-center gap-4 w-full py-6 bg-primary text-primary-foreground font-mono text-sm font-bold overflow-hidden transition-all hover:scale-[1.02] shadow-[0_0_0_rgba(245,158,11,0)] hover:shadow-[0_0_30px_rgba(245,158,11,0.2)]"
-              >
-                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300 ease-in-out" />
-                <Mail className="w-5 h-5 relative z-10" />
-                <span className="relative z-10 uppercase tracking-[0.2em]">Transmit Message</span>
-                <Send className="w-4 h-4 relative z-10 opacity-0 -translate-x-4 group-hover/btn:opacity-100 group-hover/btn:translate-x-0 transition-all duration-300" />
-              </a>
+          <div className="flex flex-col gap-6 font-mono text-sm tracking-widest uppercase">
+            <div className="flex items-center gap-4">
+              <span className="text-primary">01.</span>
+              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">Github // Code</a>
             </div>
-            
-            <div className="absolute bottom-0 right-0 w-64 h-64 bg-primary/5 blur-[100px] rounded-full translate-z-[-10px] pointer-events-none" />
+            <div className="flex items-center gap-4">
+              <span className="text-primary">02.</span>
+              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">LinkedIn // Network</a>
+            </div>
+            <div className="flex items-center gap-4">
+              <span className="text-primary">03.</span>
+              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">Twitter // Thoughts</a>
+            </div>
           </div>
         </motion.div>
       </div>

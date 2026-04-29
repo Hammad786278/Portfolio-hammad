@@ -1,21 +1,26 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Menu, X, Github, Linkedin, Twitter, Terminal, Code2, Brain, Cpu, Workflow } from "lucide-react";
+
+import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import Marquee from "@/components/Marquee";
 import About from "@/components/About";
+import Services from "@/components/Services";
 import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
+import Process from "@/components/Process";
+import Stats from "@/components/Stats";
+import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
-import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export default function Portfolio() {
   const { scrollYProgress } = useScroll();
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
 
   return (
-    <div className="relative min-h-screen bg-background text-foreground overflow-x-hidden selection:bg-primary/30">
-      <div className="fixed inset-0 z-0 noise-bg opacity-40 pointer-events-none" />
+    <div className="relative min-h-[100dvh] bg-background text-foreground overflow-x-hidden selection:bg-primary/30">
+      <div className="fixed inset-0 z-0 noise-bg pointer-events-none" />
       
       {/* Abstract Background Elements */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
@@ -27,31 +32,18 @@ export default function Portfolio() {
 
       <main className="relative z-10 flex flex-col items-center w-full">
         <Hero />
+        <Marquee />
         <About />
+        <Services />
         <Skills />
         <Projects />
+        <Process />
+        <Stats />
+        <Testimonials />
         <Contact />
       </main>
       
-      <footer className="relative z-10 w-full py-8 border-t border-border/50 bg-background/80 backdrop-blur-md">
-        <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2 text-muted-foreground font-mono text-sm">
-            <Terminal className="w-4 h-4" />
-            <span>&copy; {new Date().getFullYear()} Hammad Hussian. All rights reserved.</span>
-          </div>
-          <div className="flex gap-4">
-            <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-              <Github className="w-5 h-5" />
-            </a>
-            <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-              <Linkedin className="w-5 h-5" />
-            </a>
-            <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-              <Twitter className="w-5 h-5" />
-            </a>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

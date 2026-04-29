@@ -93,6 +93,9 @@ export default function Hero() {
   useEffect(() => {
     setWebglOk(detectWebGL());
   }, []);
+  
+  const textTitle = "Hammad Hussian";
+  
   return (
     <section id="hero" className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-background">
       <div className="absolute inset-0 z-0">
@@ -119,64 +122,79 @@ export default function Hero() {
         )}
       </div>
 
-      <div className="container relative z-10 mx-auto px-6 flex flex-col items-center justify-center text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="mb-8 inline-block px-4 py-1.5 rounded-full border border-primary/20 bg-background/40 backdrop-blur-md"
-        >
-          <span className="font-mono text-xs uppercase tracking-widest text-primary flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-            System Online // Ready
-          </span>
-        </motion.div>
-
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="text-6xl md:text-8xl lg:text-[9rem] font-serif leading-none tracking-tight text-foreground mb-6 drop-shadow-2xl"
-        >
-          Hammad <span className="text-primary italic">Hussian</span>
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-          className="text-lg md:text-2xl text-muted-foreground max-w-2xl font-light mb-12 tracking-wide"
-        >
-          Polymath Engineer. AI/ML Specialist. Full-Stack Developer.
-          <br className="hidden md:block" /> Building intelligent systems end-to-end.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-          className="flex flex-col sm:flex-row gap-6"
-        >
-          <a
-            href="#projects"
-            className="px-8 py-4 bg-primary text-primary-foreground font-mono text-sm tracking-widest uppercase hover:bg-primary/90 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(245,158,11,0.3)] transition-all duration-300"
+      <div className="container relative z-10 mx-auto px-6 h-full flex flex-col justify-center">
+        <div className="flex flex-col items-start w-full">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="mb-8 inline-block px-4 py-1.5 rounded-full border border-primary/20 bg-background/40 backdrop-blur-md"
           >
-            &gt; Execute Projects
-          </a>
-          <a
-            href="#contact"
-            className="px-8 py-4 bg-transparent border border-border text-foreground hover:border-primary/50 hover:bg-primary/5 font-mono text-sm tracking-widest uppercase transition-all duration-300"
+            <span className="font-mono text-xs uppercase tracking-widest text-primary flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              System Online // Ready
+            </span>
+          </motion.div>
+
+          <div className="relative mb-6">
+            <h1 className="text-[clamp(4rem,14vw,16rem)] font-serif leading-[0.8] tracking-tighter text-foreground drop-shadow-2xl">
+              {textTitle.split(" ").map((word, i) => (
+                <span key={i} className={`block ${i === 1 ? 'italic text-primary ml-[10vw]' : ''}`}>
+                  {word.split("").map((char, j) => (
+                    <motion.span
+                      key={j}
+                      initial={{ opacity: 0, y: 50 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: 0.2 + (i * 0.2) + (j * 0.05), ease: [0.2, 0.65, 0.3, 0.9] }}
+                      className="inline-block will-change-transform"
+                    >
+                      {char}
+                    </motion.span>
+                  ))}
+                </span>
+              ))}
+            </h1>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 1, ease: "easeOut" }}
+            className="flex flex-col gap-6 ml-[10vw] max-w-2xl"
           >
-            Contact_Node
-          </a>
-        </motion.div>
+             <p className="text-xl md:text-3xl text-muted-foreground font-light tracking-wide text-balance">
+              Polymath Engineer. AI/ML Specialist. Full-Stack Developer. Building intelligent systems end-to-end.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-6 mt-4">
+              <a
+                href="#projects"
+                className="px-8 py-4 bg-primary text-primary-foreground font-mono text-sm tracking-widest uppercase hover:bg-primary/90 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(245,158,11,0.3)] transition-all duration-300"
+              >
+                &gt; Execute Projects
+              </a>
+              <a
+                href="#contact"
+                className="px-8 py-4 bg-transparent border border-border text-foreground hover:border-primary/50 hover:bg-primary/5 font-mono text-sm tracking-widest uppercase transition-all duration-300"
+              >
+                Contact_Node
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Progress dots on the right edge */}
+      <div className="absolute right-6 top-1/2 -translate-y-1/2 hidden md:flex flex-col gap-3 z-20 mix-blend-difference">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className={`w-1.5 h-1.5 rounded-full ${i === 0 ? 'bg-primary' : 'bg-muted-foreground/30'}`} />
+        ))}
       </div>
 
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1.5 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-muted-foreground/40"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-muted-foreground/40 mix-blend-difference"
       >
         <span className="font-mono text-[10px] uppercase tracking-[0.3em]">Initialize sequence</span>
         <ArrowDown className="w-4 h-4 animate-bounce" />

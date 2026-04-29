@@ -1,6 +1,5 @@
 import { useRef, useState, useEffect, Suspense, Component, type ReactNode } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Brain, Code2, Network, Eye, Layers } from "lucide-react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Sphere, Line, Text } from "@react-three/drei";
 
@@ -30,37 +29,12 @@ function CanvasFallback() {
   return null;
 }
 
-const skills = [
-  {
-    category: "Artificial Intelligence",
-    icon: Brain,
-    description: "LLMs, RAG architectures, prompt engineering, agentic systems.",
-    tech: ["OpenAI", "LangChain", "Hugging Face", "PyTorch"],
-  },
-  {
-    category: "Full-Stack Web",
-    icon: Code2,
-    description: "Scalable, high-performance web applications from database to UI.",
-    tech: ["React", "Node.js", "TypeScript", "PostgreSQL", "Next.js"],
-  },
-  {
-    category: "Machine Learning",
-    icon: Network,
-    description: "Predictive modeling, data pipelines, model optimization & deployment.",
-    tech: ["TensorFlow", "Scikit-Learn", "Pandas", "MLOps"],
-  },
-  {
-    category: "Computer Vision",
-    icon: Eye,
-    description: "Object detection, image segmentation, facial recognition systems.",
-    tech: ["OpenCV", "YOLO", "ResNet", "CUDA"],
-  },
-  {
-    category: "Automation (n8n)",
-    icon: Layers,
-    description: "Complex workflow orchestration, API integrations, ETL pipelines.",
-    tech: ["n8n", "Zapier", "Webhooks", "Custom Nodes"],
-  }
+const stackData = [
+  { id: "AI", name: "Artificial Intelligence", tools: ["OpenAI", "Anthropic", "LangChain", "RAG", "Vector DBs"] },
+  { id: "FS", name: "Full-Stack Web", tools: ["Next.js", "React", "Node.js", "Postgres", "tRPC"] },
+  { id: "ML", name: "Machine Learning", tools: ["PyTorch", "TensorFlow", "Scikit-Learn", "Pandas", "MLOps"] },
+  { id: "CV", name: "Computer Vision", tools: ["OpenCV", "YOLO", "MediaPipe", "ResNet", "CUDA"] },
+  { id: "AT", name: "Automation", tools: ["n8n", "Workflow Design", "Custom Nodes", "Integrations"] }
 ];
 
 const NODE_POSITIONS: [number, number, number][] = [
@@ -84,8 +58,7 @@ function Constellation() {
 
   return (
     <group ref={groupRef}>
-      {/* Nodes */}
-      {skills.map((skill, i) => (
+      {stackData.map((skill, i) => (
         <group key={i} position={NODE_POSITIONS[i]}>
           <Sphere args={[0.3, 16, 16]}>
             <meshStandardMaterial 
@@ -104,12 +77,11 @@ function Constellation() {
             anchorY="middle"
             font="https://fonts.gstatic.com/s/jetbrainsmono/v18/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKw.woff"
           >
-            {skill.category}
+            {skill.id}
           </Text>
         </group>
       ))}
 
-      {/* Connections */}
       <Line points={[NODE_POSITIONS[0], NODE_POSITIONS[1]]} color="#ea580c" lineWidth={1} transparent opacity={0.3} />
       <Line points={[NODE_POSITIONS[0], NODE_POSITIONS[2]]} color="#ea580c" lineWidth={1} transparent opacity={0.3} />
       <Line points={[NODE_POSITIONS[1], NODE_POSITIONS[3]]} color="#ea580c" lineWidth={1} transparent opacity={0.3} />
@@ -126,18 +98,9 @@ export default function Skills() {
     setWebglOk(detectWebGL());
   }, []);
 
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
-  
-  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
-
   return (
-    <section id="skills" className="relative w-full py-40 bg-background border-y border-border/20" ref={containerRef}>
-      {/* 3D Background */}
-      <div className="absolute inset-0 z-0 opacity-50 pointer-events-none hidden lg:block">
+    <section id="skills" className="relative w-full py-40 bg-background border-t border-border/20 overflow-hidden">
+      <div className="absolute inset-0 z-0 opacity-40 pointer-events-none hidden lg:block right-1/2">
         {webglOk ? (
           <WebGLBoundary fallback={<CanvasFallback />}>
             <Canvas camera={{ position: [0, 0, 8], fov: 45 }}>
@@ -153,68 +116,49 @@ export default function Skills() {
         )}
       </div>
 
-      <div className="container relative z-10 mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-          className="mb-24 text-center"
-        >
-          <div className="font-mono text-secondary mb-6 text-xs tracking-[0.2em] uppercase">
-            &gt; initializing modules...
+      <div className="container relative z-10 mx-auto px-6 max-w-7xl">
+        <div className="flex flex-col lg:flex-row gap-20 items-center">
+          <div className="w-full lg:w-1/2 min-h-[400px]">
+             {/* 3D area placeholder for mobile or visual balance */}
           </div>
-          <h2 className="text-5xl md:text-7xl font-serif tracking-tight text-foreground">
-            Technical <span className="text-primary italic">Capabilities</span>
-          </h2>
-        </motion.div>
+          
+          <div className="w-full lg:w-1/2">
+            <div className="font-mono text-xs text-primary mb-12 tracking-[0.2em] uppercase">
+              / 04 — SKILLS CONSTELLATION
+            </div>
+            <h2 className="text-[clamp(3rem,6vw,6rem)] font-serif leading-[0.9] tracking-tighter text-foreground mb-16">
+              Technical <span className="text-muted-foreground italic">Stack</span>
+            </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {skills.map((skill, index) => {
-            const Icon = skill.icon;
-            return (
-              <motion.div
-                key={skill.category}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="group relative p-8 bg-card/40 backdrop-blur-xl border border-border/40 overflow-hidden hover:border-primary/40 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_10px_40px_rgba(245,158,11,0.1)] perspective-1000 transform-style-3d"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                
-                <div className="relative z-10 translate-z-[20px]">
-                  <div className="mb-6 p-4 inline-flex bg-background/50 backdrop-blur border border-border/50 text-muted-foreground group-hover:text-primary transition-colors duration-500">
-                    <Icon className="w-8 h-8" />
+            <div className="flex flex-col gap-10">
+              {stackData.map((stack, i) => (
+                <motion.div 
+                  key={stack.id}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                  className="flex flex-col md:flex-row md:items-center gap-6 pb-6 border-b border-border/30 group"
+                >
+                  <div className="font-mono text-xl text-primary md:w-1/4">
+                    {stack.id}
                   </div>
-                  
-                  <h3 className="text-2xl font-serif mb-3 text-foreground group-hover:text-primary transition-colors">{skill.category}</h3>
-                  <p className="text-muted-foreground text-sm mb-8 leading-relaxed font-light">
-                    {skill.description}
-                  </p>
-                  
-                  <div className="flex flex-wrap gap-2 mt-auto">
-                    {skill.tech.map((t) => (
-                      <span key={t} className="px-3 py-1.5 text-[10px] font-mono uppercase tracking-wider bg-background/50 border border-border/50 text-muted-foreground group-hover:border-primary/30 group-hover:text-foreground transition-colors">
-                        {t}
-                      </span>
-                    ))}
+                  <div className="md:w-3/4">
+                    <h4 className="font-mono text-sm tracking-widest text-foreground uppercase mb-4">{stack.name}</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {stack.tools.map((tool, j) => (
+                        <span key={j} className="px-3 py-1 text-[10px] font-mono uppercase tracking-wider bg-background/50 border border-border/50 text-muted-foreground group-hover:border-primary/30 group-hover:text-foreground transition-colors">
+                          {tool}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            );
-          })}
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
-      
-      <motion.div 
-        style={{ y }}
-        className="absolute top-1/4 right-10 font-mono text-[10px] text-muted-foreground/20 pointer-events-none select-none hidden lg:block tracking-widest"
-      >
-        {Array.from({ length: 15 }).map((_, i) => (
-          <div key={i}>{`01001000 01100001 01101101 ${i}`}</div>
-        ))}
-      </motion.div>
     </section>
   );
 }
