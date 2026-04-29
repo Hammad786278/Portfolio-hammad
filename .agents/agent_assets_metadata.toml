@@ -1,0 +1,26 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "oq90LDenxS1y0YKEFYkSe"
+uri = "file://artifacts/portfolio/src/assets/project-vision.png"
+type = "image"
+title = "Computer Vision object detection"
+
+[[generated]]
+id = "C40HeynEpphzoYvUICxTm"
+uri = "file://artifacts/portfolio/src/assets/project-saas.png"
+type = "image"
+title = "AI SaaS platform dashboard"
+
+[[generated]]
+id = "JlJtG1r0muXErhtA8v7fQ"
+uri = "file://artifacts/portfolio/src/assets/project-n8n.png"
+type = "image"
+title = "n8n automation workflow nodes"
+
+[[generated]]
+id = "mRm7pJ27g2nNTebkutnYT"
+uri = "file://artifacts/portfolio/src/assets/project-ml.png"
+type = "image"
+title = "Machine Learning data pipeline"
