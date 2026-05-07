@@ -52,12 +52,16 @@ if [ -n "$DIRTY" ]; then
 fi
 
 LOCAL_SHA=$(git rev-parse HEAD)
-REMOTE_SHA=$(GIT_ASKPASS="$ASKPASS_SCRIPT" git ls-remote "$REMOTE_NAME" "refs/heads/${BRANCH}" 2>/dev/null | awk '{print $1}')
+REMOTE_SHA=$(git ls-remote "$REMOTE_NAME" "refs/heads/${BRANCH}" 2>/dev/null | awk '{print $1}')
 
 if [ "$LOCAL_SHA" = "$REMOTE_SHA" ]; then
   echo "[sync-github] Already up-to-date (${LOCAL_SHA:0:7}). Nothing to push."
   exit 0
 fi
 
-git push "$REMOTE_NAME" "HEAD:refs/heads/${BRANCH}"
+if ! git push "$REMOTE_NAME" "HEAD:refs/heads/${BRANCH}" 2>&1; then
+  echo "[sync-github] Fast-forward push failed — attempting force-with-lease..."
+  git push --force-with-lease "$REMOTE_NAME" "HEAD:refs/heads/${BRANCH}"
+fi
+
 echo "[sync-github] Pushed ${LOCAL_SHA:0:7} → github.com/${REPO}#${BRANCH}"
