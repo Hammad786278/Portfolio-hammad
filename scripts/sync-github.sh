@@ -60,8 +60,10 @@ if [ "$LOCAL_SHA" = "$REMOTE_SHA" ]; then
 fi
 
 if ! git push "$REMOTE_NAME" "HEAD:refs/heads/${BRANCH}" 2>&1; then
-  echo "[sync-github] ERROR: Push to ${BRANCH} failed (diverged history?)."
-  echo "[sync-github] Run: git pull --rebase ${REMOTE_NAME} ${BRANCH}  then retry."
+  echo "[sync-github] ERROR: Push to ${BRANCH} failed — remote history has diverged."
+  echo "[sync-github] ACTION REQUIRED: run the following to reconcile and retry:"
+  echo "[sync-github]   git fetch ${REMOTE_NAME} && git rebase ${REMOTE_NAME}/${BRANCH}"
+  echo "[sync-github]   bash scripts/sync-github.sh"
   exit 1
 fi
 

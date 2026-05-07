@@ -6,7 +6,9 @@
     "preinstall": "sh -c 'rm -f package-lock.json yarn.lock; case \"$npm_config_user_agent\" in pnpm/*) ;; *) echo \"Use pnpm instead\" >&2; exit 1 ;; esac'",
     "build": "pnpm run typecheck && pnpm -r --if-present run build",
     "typecheck:libs": "tsc --build",
-    "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck"
+    "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck",
+    "sync:setup": "bash scripts/install-hooks.sh && nohup bash scripts/sync-daemon.sh >> .git/sync-github.log 2>&1 &",
+    "sync:now": "bash scripts/sync-github.sh"
   },
   "private": true,
   "devDependencies": {
