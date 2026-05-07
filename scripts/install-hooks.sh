@@ -9,8 +9,7 @@ mkdir -p "$HOOKS_DIR"
 
 cat > "$HOOK_FILE" << 'HOOK'
 #!/usr/bin/env bash
-# Automatically push commits to GitHub after every local commit.
-# Runs in the background so it does not block git operations.
+# Immediately push to GitHub after every local git commit (runs in background).
 REPO_ROOT=$(git rev-parse --show-toplevel)
 nohup bash "${REPO_ROOT}/scripts/sync-github.sh" \
   >> "${REPO_ROOT}/.git/sync-github.log" 2>&1 &

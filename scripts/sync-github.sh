@@ -60,8 +60,9 @@ if [ "$LOCAL_SHA" = "$REMOTE_SHA" ]; then
 fi
 
 if ! git push "$REMOTE_NAME" "HEAD:refs/heads/${BRANCH}" 2>&1; then
-  echo "[sync-github] Fast-forward push failed — attempting force-with-lease..."
-  git push --force-with-lease "$REMOTE_NAME" "HEAD:refs/heads/${BRANCH}"
+  echo "[sync-github] ERROR: Push to ${BRANCH} failed (diverged history?)."
+  echo "[sync-github] Run: git pull --rebase ${REMOTE_NAME} ${BRANCH}  then retry."
+  exit 1
 fi
 
 echo "[sync-github] Pushed ${LOCAL_SHA:0:7} → github.com/${REPO}#${BRANCH}"
