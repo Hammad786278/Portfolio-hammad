@@ -26,7 +26,7 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "while true; do bash scripts/sync-github.sh; sleep 300; done"
+args = "while true; do bash scripts/sync-github.sh; sleep 60; done"
 
 [workflows.workflow.metadata]
 outputType = "console"
