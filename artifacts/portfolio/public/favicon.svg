@@ -1,3 +1,23 @@
 <svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="180" height="180" rx="36" fill="#FF3C00"/>
+  <!-- Dark background with rounded corners -->
+  <rect width="180" height="180" rx="32" fill="#0d0d0f"/>
+
+  <!-- Outer geometric frame — top-left corner bracket -->
+  <path d="M24 48 L24 24 L48 24" stroke="#dccab0" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.7"/>
+  <!-- bottom-right corner bracket -->
+  <path d="M156 132 L156 156 L132 156" stroke="#dccab0" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.7"/>
+  <!-- top-right corner bracket -->
+  <path d="M132 24 L156 24 L156 48" stroke="#dccab0" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.3"/>
+  <!-- bottom-left corner bracket -->
+  <path d="M48 156 L24 156 L24 132" stroke="#dccab0" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.3"/>
+
+  <!-- H monogram — left vertical bar -->
+  <rect x="46" y="50" width="16" height="80" rx="3" fill="#dccab0"/>
+  <!-- H monogram — right vertical bar -->
+  <rect x="118" y="50" width="16" height="80" rx="3" fill="#dccab0"/>
+  <!-- H monogram — crossbar -->
+  <rect x="46" y="82" width="88" height="16" rx="3" fill="#dccab0"/>
+
+  <!-- Small accent dot — bottom right of H -->
+  <circle cx="142" cy="138" r="5" fill="#dccab0" opacity="0.6"/>
 </svg>
