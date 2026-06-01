@@ -98,7 +98,7 @@ export default function Hero() {
   
   return (
     <section id="hero" className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-background">
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-y-0 right-0 w-full lg:w-1/2 z-0">
         {webglOk ? (
           <WebGLBoundary fallback={<CanvasFallback />}>
             <Canvas
