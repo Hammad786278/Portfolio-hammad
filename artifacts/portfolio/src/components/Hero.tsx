@@ -173,7 +173,7 @@ export default function Hero() {
                 &gt; Execute Projects
               </a>
               <a
-                href="#contact"
+                href="tel:+923476446706"
                 className="px-8 py-4 bg-transparent border border-border text-foreground hover:border-primary/50 hover:bg-primary/5 font-mono text-sm tracking-widest uppercase transition-all duration-300"
               >
                 Contact_Node

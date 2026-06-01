@@ -1,6 +1,6 @@
 import { useRef, MouseEvent } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+// import { ArrowUpRight } from "lucide-react";
 
 import projectVision from "@/assets/project-vision.png";
 import projectSaas from "@/assets/project-saas.png";
@@ -10,56 +10,44 @@ import projectMl from "@/assets/project-ml.png";
 const projects = [
   {
     id: "01",
-    title: "OmniSight.ai",
-    role: "Lead CV Engineer",
+    title: "Human Edge Detection",
+    role: "CV Engineer",
     year: "2024",
-    status: "PRODUCTION",
-    description: "Real-time edge-device computer vision system for industrial defect detection.",
-    stack: ["PyTorch", "YOLOv8", "TensorRT", "React", "FastAPI"],
+    status: "LIVE",
+    description: "Real-time human pose and edge detection system using deep learning — identifies body contours, joint positions, and motion vectors from live video streams.",
+    stack: ["OpenCV", "MediaPipe", "PyTorch", "CUDA", "FastAPI", "React"],
     image: projectVision,
   },
   {
     id: "02",
-    title: "NeuroFlow",
-    role: "Automation Architect",
-    year: "2023",
-    status: "LIVE",
-    description: "Enterprise-grade n8n workflow engine connecting 40+ microservices autonomously.",
-    stack: ["n8n", "Node.js", "Docker", "PostgreSQL", "Redis"],
-    image: projectN8n,
-  },
-  {
-    id: "03",
-    title: "Cognitive SaaS",
+    title: "Printoj",
     role: "Full-Stack Dev",
-    year: "2023",
-    status: "ACQUIRED",
-    description: "AI-powered document intelligence platform serving enterprise clients.",
-    stack: ["Next.js", "LangChain", "OpenAI API", "Tailwind", "Prisma"],
+    year: "2025",
+    status: "LIVE",
+    description: "End-to-end print-on-demand platform for custom shirts and business cards — design editor, product configurator, order management, and fulfilment pipeline.",
+    stack: ["Next.js", "React", "Node.js", "PostgreSQL", "Stripe", "Tailwind"],
     image: projectSaas,
   },
   {
-    id: "04",
-    title: "Synapse",
+    id: "03",
+    title: "Fake News Detector",
     role: "ML Engineer",
-    year: "2022",
-    status: "INTERNAL",
-    description: "Distributed machine learning training pipeline with automated hyperparameter tuning.",
-    stack: ["Kubernetes", "Apache Airflow", "TensorFlow", "Python"],
+    year: "2024",
+    status: "PRODUCTION",
+    description: "NLP-powered misinformation detection pipeline that classifies news articles in real time using fine-tuned transformer models and cross-source fact verification.",
+    stack: ["Python", "HuggingFace", "BERT", "FastAPI", "React", "PostgreSQL"],
     image: projectMl,
   },
   {
-    id: "05",
-    title: "Operator",
-    role: "AI Agent Dev",
-    year: "2024",
-    status: "BETA",
-    description: "Autonomous LLM agent capable of navigating web interfaces and executing complex multi-step workflows.",
-    stack: ["Anthropic Claude", "Puppeteer", "TypeScript", "Vite"],
-    image: null,
-    bgClass: "bg-primary/10",
-    code: "PRJ_05 // OPERATOR"
-  }
+    id: "04",
+    title: "Full-Stack Web Suite",
+    role: "Full-Stack Dev",
+    year: "2023",
+    status: "DELIVERED",
+    description: "Collection of bespoke client websites with custom frontends and REST/GraphQL backends — covering landing pages, dashboards, and e-commerce storefronts.",
+    stack: ["Next.js", "Express", "GraphQL", "Tailwind", "Prisma", "Vercel"],
+    image: projectN8n,
+  },
 ];
 
 function ProjectCard({ project }: { project: any }) {
@@ -114,11 +102,11 @@ function ProjectCard({ project }: { project: any }) {
         )}
         <div className="absolute inset-0 bg-background/20 group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none" />
         
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 pointer-events-none">
+        {/* <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 pointer-events-none">
           <div className="bg-primary text-primary-foreground px-6 py-3 font-mono text-xs uppercase tracking-widest flex items-center gap-2 rounded-full">
             View Case <ArrowUpRight className="w-4 h-4" />
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">

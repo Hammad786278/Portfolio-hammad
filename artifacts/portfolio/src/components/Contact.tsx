@@ -109,31 +109,32 @@ export default function Contact() {
         >
           <div>
             <a
-              href="mailto:hammad@example.dev"
+              href="mailto:hammadawan036@gmail.com"
               className="group relative flex items-center justify-between p-8 border border-border/40 bg-card/40 backdrop-blur-xl overflow-hidden transition-all hover:border-primary/50"
             >
               <div className="absolute inset-0 bg-primary/5 -translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out pointer-events-none" />
               <div className="relative z-10 flex flex-col gap-2">
                 <span className="font-mono text-xs text-muted-foreground tracking-widest uppercase">Direct Line</span>
-                <span className="font-mono text-xl md:text-2xl text-foreground group-hover:text-primary transition-colors">hammad@example.dev</span>
+                <span className="font-mono text-xl md:text-2xl text-foreground group-hover:text-primary transition-colors">hammadawan036@gmail.com</span>
+                <a href="tel:+923476446706" onClick={(e) => e.stopPropagation()} className="font-mono text-sm text-muted-foreground hover:text-primary transition-colors hover:underline underline-offset-4">+92 347-6446706</a>
               </div>
               <Send className="w-6 h-6 text-primary relative z-10 opacity-50 group-hover:opacity-100 group-hover:translate-x-2 transition-all duration-500" />
             </a>
           </div>
 
           <div className="flex flex-col gap-6 font-mono text-sm tracking-widest uppercase">
-            <div className="flex items-center gap-4">
+            {/* <div className="flex items-center gap-4">
               <span className="text-primary">01.</span>
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors">Github // Code</a>
-            </div>
-            <div className="flex items-center gap-4">
+            </div> */}
+            {/* <div className="flex items-center gap-4">
               <span className="text-primary">02.</span>
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors">LinkedIn // Network</a>
-            </div>
-            <div className="flex items-center gap-4">
+            </div> */}
+            {/* <div className="flex items-center gap-4">
               <span className="text-primary">03.</span>
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors">Twitter // Thoughts</a>
-            </div>
+            </div> */}
           </div>
         </motion.div>
       </div>
