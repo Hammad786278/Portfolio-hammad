@@ -5,50 +5,36 @@
   <!-- Subtle grid -->
   <defs>
     <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
-      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#dccab0" stroke-width="0.3" opacity="0.12"/>
+      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#dccab0" stroke-width="0.3" opacity="0.1"/>
     </pattern>
-    <radialGradient id="glow" cx="30%" cy="50%" r="55%">
-      <stop offset="0%" stop-color="#dccab0" stop-opacity="0.08"/>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#dccab0" stop-opacity="0.06"/>
       <stop offset="100%" stop-color="#0d0d0f" stop-opacity="0"/>
     </radialGradient>
   </defs>
   <rect width="1200" height="630" fill="url(#grid)"/>
   <rect width="1200" height="630" fill="url(#glow)"/>
 
-  <!-- Corner brackets — top left -->
-  <path d="M 60 120 L 60 60 L 120 60" stroke="#dccab0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.8"/>
+  <!-- Corner brackets — top left (same as favicon, scaled up) -->
+  <path d="M 60 140 L 60 60 L 140 60" stroke="#dccab0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.8"/>
   <!-- Corner brackets — bottom right -->
-  <path d="M 1140 510 L 1140 570 L 1080 570" stroke="#dccab0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.8"/>
+  <path d="M 1140 490 L 1140 570 L 1060 570" stroke="#dccab0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.8"/>
   <!-- Corner brackets — top right subtle -->
-  <path d="M 1080 60 L 1140 60 L 1140 120" stroke="#dccab0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.25"/>
+  <path d="M 1060 60 L 1140 60 L 1140 140" stroke="#dccab0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.25"/>
   <!-- Corner brackets — bottom left subtle -->
-  <path d="M 120 570 L 60 570 L 60 510" stroke="#dccab0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.25"/>
+  <path d="M 140 570 L 60 570 L 60 490" stroke="#dccab0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.25"/>
 
-  <!-- H monogram — large, left side -->
-  <rect x="80" y="200" width="22" height="110" rx="4" fill="#dccab0" opacity="0.9"/>
-  <rect x="80" y="249" width="60" height="14" rx="3" fill="#dccab0" opacity="0.9"/>
-  <rect x="118" y="200" width="22" height="110" rx="4" fill="#dccab0" opacity="0.9"/>
+  <!-- Big H monogram — centered, same proportions as favicon -->
+  <!-- Left vertical bar -->
+  <rect x="390" y="155" width="60" height="320" rx="10" fill="#dccab0"/>
+  <!-- Right vertical bar -->
+  <rect x="750" y="155" width="60" height="320" rx="10" fill="#dccab0"/>
+  <!-- Crossbar -->
+  <rect x="390" y="283" width="420" height="64" rx="10" fill="#dccab0"/>
 
-  <!-- Divider line -->
-  <line x1="80" y1="340" x2="1120" y2="340" stroke="#dccab0" stroke-width="0.5" opacity="0.15"/>
+  <!-- Accent dot — bottom right of H (same as favicon) -->
+  <circle cx="820" cy="500" r="10" fill="#dccab0" opacity="0.5"/>
 
-  <!-- Top label -->
-  <text x="80" y="175" font-family="monospace" font-size="13" fill="#dccab0" opacity="0.5" letter-spacing="4">PORTFOLIO // 2025</text>
-
-  <!-- Main name -->
-  <text x="80" y="460" font-family="Georgia, serif" font-size="112" fill="#f5f0ea" font-style="italic" letter-spacing="-3" opacity="0.95">Hammad</text>
-  <text x="420" y="560" font-family="Georgia, serif" font-size="112" fill="#dccab0" font-style="italic" letter-spacing="-3" opacity="0.85">Hussain</text>
-
-  <!-- Right side — role tags -->
-  <text x="820" y="200" font-family="monospace" font-size="13" fill="#dccab0" opacity="0.45" letter-spacing="3">01. AI / ML ENGINEER</text>
-  <text x="820" y="230" font-family="monospace" font-size="13" fill="#dccab0" opacity="0.45" letter-spacing="3">02. FULL-STACK DEV</text>
-  <text x="820" y="260" font-family="monospace" font-size="13" fill="#dccab0" opacity="0.45" letter-spacing="3">03. COMPUTER VISION</text>
-  <text x="820" y="290" font-family="monospace" font-size="13" fill="#dccab0" opacity="0.45" letter-spacing="3">04. AUTOMATION</text>
-
-  <!-- Bottom tagline -->
-  <text x="80" y="600" font-family="monospace" font-size="14" fill="#dccab0" opacity="0.4" letter-spacing="3">BUILDING INTELLIGENT SYSTEMS END-TO-END</text>
-
-  <!-- Accent dot -->
-  <circle cx="1120" cy="60" r="6" fill="#dccab0" opacity="0.5"/>
-  <circle cx="1120" cy="60" r="12" fill="none" stroke="#dccab0" stroke-width="1" opacity="0.2"/>
+  <!-- Name below -->
+  <text x="600" y="570" font-family="Georgia, 'Times New Roman', serif" font-size="28" fill="#dccab0" opacity="0.55" text-anchor="middle" letter-spacing="12" font-style="italic">HAMMAD HUSSAIN</text>
 </svg>
