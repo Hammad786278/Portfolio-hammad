@@ -35,11 +35,11 @@ function RotatingKnot() {
     <TorusKnot ref={meshRef} args={[1, 0.3, 100, 16]}>
       <meshStandardMaterial 
         color="#dccab0"
-        roughness={0.2}
-        metalness={0.8}
+        roughness={0.15}
+        metalness={0.95}
         wireframe={true}
-        emissive="#b8a596"
-        emissiveIntensity={0.2}
+        emissive="#dccab0"
+        emissiveIntensity={0.6}
       />
     </TorusKnot>
   );
@@ -63,13 +63,13 @@ export default function Contact() {
 
   return (
     <section id="contact" className="relative w-full py-40 bg-background border-t border-border/20 overflow-hidden">
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] opacity-20 pointer-events-none hidden lg:block">
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] opacity-35 pointer-events-none hidden lg:block">
         {webglOk ? (
           <WebGLBoundary fallback={<CanvasFallback />}>
             <Canvas camera={{ position: [0, 0, 5], fov: 45 }} gl={{ antialias: false, powerPreference: "high-performance", stencil: false }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
               <Suspense fallback={null}>
-                <ambientLight intensity={0.5} />
-                <directionalLight position={[10, 10, 5]} intensity={1} color="#dccab0" />
+                <ambientLight intensity={0.7} />
+                <directionalLight position={[10, 10, 5]} intensity={1.5} color="#dccab0" />
                 <RotatingKnot />
               </Suspense>
             </Canvas>
