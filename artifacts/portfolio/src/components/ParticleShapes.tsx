@@ -286,12 +286,12 @@ function ParticleCloud() {
   }, []);
 
   useEffect(() => {
-    const formTimer = setTimeout(() => setPhase("formed"), 6000); // Slower timing
-    const holdTimer = setTimeout(() => setPhase("bursting"), 12000); // Longer hold
+    const formTimer = setTimeout(() => setPhase("formed"), 4000); // Balanced timing
+    const holdTimer = setTimeout(() => setPhase("bursting"), 8000); // Moderate hold
     const burstTimer = setTimeout(() => {
       setShapeIndex((prev) => (prev + 1) % shapes.length);
       setPhase("forming");
-    }, 15000); // Slower complete cycle
+    }, 10000); // Balanced complete cycle
     
     return () => {
       clearTimeout(formTimer);
@@ -306,30 +306,30 @@ function ParticleCloud() {
     const positions = pointsRef.current.geometry.attributes.position.array;
     
     if (phase === "forming") {
-      // Move particles toward target shape - much slower
+      // Move particles toward target shape - balanced speed
       for (let i = 0; i < particleCount; i++) {
         const i3 = i * 3;
         const dx = targetShape[i3] - positions[i3];
         const dy = targetShape[i3 + 1] - positions[i3 + 1];
         const dz = targetShape[i3 + 2] - positions[i3 + 2];
-        positions[i3] += dx * 0.015; // Reduced from 0.03 for slower formation
-        positions[i3 + 1] += dy * 0.015;
-        positions[i3 + 2] += dz * 0.015;
+        positions[i3] += dx * 0.025; // Balanced formation speed
+        positions[i3 + 1] += dy * 0.025;
+        positions[i3 + 2] += dz * 0.025;
       }
     } else if (phase === "formed") {
-      // Gentle floating around shape - slower
+      // Gentle floating around shape - moderate speed
       for (let i = 0; i < particleCount; i++) {
         const i3 = i * 3;
-        positions[i3] += Math.sin(Date.now() * 0.0004 + i) * 0.001; // Slower floating
-        positions[i3 + 1] += Math.cos(Date.now() * 0.0004 + i) * 0.001;
+        positions[i3] += Math.sin(Date.now() * 0.0006 + i) * 0.0012; // Moderate floating
+        positions[i3 + 1] += Math.cos(Date.now() * 0.0006 + i) * 0.0012;
       }
     } else if (phase === "bursting") {
-      // Explode outward - slower
+      // Explode outward - moderate speed
       for (let i = 0; i < particleCount; i++) {
         const i3 = i * 3;
-        positions[i3] += velocities[i3] * 1.2; // Reduced from 2 for slower burst
-        positions[i3 + 1] += velocities[i3 + 1] * 1.2;
-        positions[i3 + 2] += velocities[i3 + 2] * 1.2;
+        positions[i3] += velocities[i3] * 1.6; // Moderate burst speed
+        positions[i3 + 1] += velocities[i3 + 1] * 1.6;
+        positions[i3 + 2] += velocities[i3 + 2] * 1.6;
       }
     }
     
