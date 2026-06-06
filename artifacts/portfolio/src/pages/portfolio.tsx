@@ -8,6 +8,7 @@ import Marquee from "@/components/Marquee";
 import About from "@/components/About";
 import Services from "@/components/Services";
 import Skills from "@/components/Skills";
+import ParticleShapes from "@/components/ParticleShapes";
 import Projects from "@/components/Projects";
 import Process from "@/components/Process";
 import Stats from "@/components/Stats";
@@ -36,6 +37,7 @@ export default function Portfolio() {
         <About />
         <Services />
         <Skills />
+        <ParticleShapes />
         <Projects />
         <Process />
         <Stats />
