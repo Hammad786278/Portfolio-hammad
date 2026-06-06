@@ -39,7 +39,7 @@ function ParticleField(props: any) {
   return (
     <group rotation={[0, 0, Math.PI / 4]}>
       <Points ref={ref} positions={sphere as Float32Array} stride={3} frustumCulled={true} {...props}>
-        <PointMaterial transparent color="#dccab0" size={0.003} sizeAttenuation={true} depthWrite={false} opacity={0.6} />
+        <PointMaterial transparent color="#dccab0" size={0.003} sizeAttenuation={true} depthWrite={false} opacity={0.75} />
       </Points>
     </group>
   );
@@ -64,15 +64,15 @@ function DistortedCore() {
     <Sphere ref={meshRef} args={[1, 48, 48]} scale={1.4}>
       <MeshDistortMaterial
         ref={matRef}
-        color="#0a0a0a"
+        color="#1a1a1a"
         attach="material"
         distort={0.3}
         speed={1.5}
-        roughness={0.4}
-        metalness={0.9}
+        roughness={0.3}
+        metalness={0.95}
         wireframe={true}
         emissive="#dccab0"
-        emissiveIntensity={0.2}
+        emissiveIntensity={0.4}
       />
     </Sphere>
   );
@@ -117,9 +117,9 @@ export default function Hero() {
               }}
             >
               <Suspense fallback={null}>
-                <ambientLight intensity={0.2} />
-                <directionalLight position={[10, 10, 5]} intensity={1} color="#dccab0" />
-                <directionalLight position={[-10, -10, -5]} intensity={0.5} color="#b8a596" />
+                <ambientLight intensity={0.6} />
+                <directionalLight position={[10, 10, 5]} intensity={1.2} color="#dccab0" />
+                <directionalLight position={[-10, -10, -5]} intensity={0.7} color="#b8a596" />
                 <ParticleField />
                 <DistortedCore />
               </Suspense>
