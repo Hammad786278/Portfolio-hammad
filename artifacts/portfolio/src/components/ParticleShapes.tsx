@@ -21,32 +21,45 @@ const shapes = [
     name: "CPU_CHIP",
     points: (() => {
       const pts: number[] = [];
-      // Main square chip
-      for (let i = 0; i < 60; i++) {
-        const angle = (i / 60) * Math.PI * 2;
+      // Main square chip - more points for better definition
+      for (let i = 0; i < 100; i++) {
+        const angle = (i / 100) * Math.PI * 2;
         pts.push(Math.cos(angle) * 0.6, Math.sin(angle) * 0.6, 0);
       }
-      // Inner circuits
-      for (let i = 0; i < 40; i++) {
-        const angle = (i / 40) * Math.PI * 2;
-        pts.push(Math.cos(angle) * 0.3, Math.sin(angle) * 0.3, 0);
+      // Inner circuits - multiple layers
+      for (let layer = 0; layer < 3; layer++) {
+        const radius = 0.45 - layer * 0.1;
+        for (let i = 0; i < 80; i++) {
+          const angle = (i / 80) * Math.PI * 2;
+          pts.push(Math.cos(angle) * radius, Math.sin(angle) * radius, 0);
+        }
       }
-      // Pins radiating out
+      // Grid pattern inside
+      for (let x = -0.4; x <= 0.4; x += 0.1) {
+        for (let y = -0.4; y <= 0.4; y += 0.1) {
+          pts.push(x, y, 0);
+        }
+      }
+      // Pins radiating out - more detailed
       for (let side = 0; side < 4; side++) {
-        for (let pin = 0; pin < 8; pin++) {
-          const offset = (pin - 3.5) * 0.2;
+        for (let pin = 0; pin < 12; pin++) {
+          const offset = (pin - 5.5) * 0.15;
           if (side === 0) { // top
-            pts.push(offset, 0.6, 0);
-            pts.push(offset, 0.8, 0);
+            for (let p = 0; p < 5; p++) {
+              pts.push(offset, 0.6 + p * 0.04, 0);
+            }
           } else if (side === 1) { // right
-            pts.push(0.6, offset, 0);
-            pts.push(0.8, offset, 0);
+            for (let p = 0; p < 5; p++) {
+              pts.push(0.6 + p * 0.04, offset, 0);
+            }
           } else if (side === 2) { // bottom
-            pts.push(offset, -0.6, 0);
-            pts.push(offset, -0.8, 0);
+            for (let p = 0; p < 5; p++) {
+              pts.push(offset, -0.6 - p * 0.04, 0);
+            }
           } else { // left
-            pts.push(-0.6, offset, 0);
-            pts.push(-0.8, offset, 0);
+            for (let p = 0; p < 5; p++) {
+              pts.push(-0.6 - p * 0.04, offset, 0);
+            }
           }
         }
       }
@@ -58,35 +71,35 @@ const shapes = [
     name: "BINARY_TREE",
     points: (() => {
       const pts: number[] = [];
-      // Root node
-      for (let i = 0; i < 15; i++) {
-        const angle = (i / 15) * Math.PI * 2;
-        pts.push(Math.cos(angle) * 0.1, 0.8 + Math.sin(angle) * 0.1, 0);
+      // Root node - more points for better circle
+      for (let i = 0; i < 25; i++) {
+        const angle = (i / 25) * Math.PI * 2;
+        pts.push(Math.cos(angle) * 0.12, 0.8 + Math.sin(angle) * 0.12, 0);
       }
       // Level 1 - 2 nodes
       for (let node = 0; node < 2; node++) {
         const x = (node - 0.5) * 0.8;
-        for (let i = 0; i < 12; i++) {
-          const angle = (i / 12) * Math.PI * 2;
-          pts.push(x + Math.cos(angle) * 0.08, 0.3 + Math.sin(angle) * 0.08, 0);
-        }
-        // Connection lines
         for (let i = 0; i < 20; i++) {
-          const t = i / 20;
+          const angle = (i / 20) * Math.PI * 2;
+          pts.push(x + Math.cos(angle) * 0.1, 0.3 + Math.sin(angle) * 0.1, 0);
+        }
+        // Connection lines - more points for smooth lines
+        for (let i = 0; i < 30; i++) {
+          const t = i / 30;
           pts.push(t * x, 0.8 - t * 0.5, 0);
         }
       }
       // Level 2 - 4 leaf nodes
       for (let node = 0; node < 4; node++) {
         const x = (node - 1.5) * 0.5;
-        for (let i = 0; i < 10; i++) {
-          const angle = (i / 10) * Math.PI * 2;
-          pts.push(x + Math.cos(angle) * 0.06, -0.3 + Math.sin(angle) * 0.06, 0);
+        for (let i = 0; i < 18; i++) {
+          const angle = (i / 18) * Math.PI * 2;
+          pts.push(x + Math.cos(angle) * 0.08, -0.3 + Math.sin(angle) * 0.08, 0);
         }
-        // Connection to parent
+        // Connection to parent - smoother lines
         const parentX = Math.floor(node / 2) === 0 ? -0.4 : 0.4;
-        for (let i = 0; i < 15; i++) {
-          const t = i / 15;
+        for (let i = 0; i < 25; i++) {
+          const t = i / 25;
           pts.push(parentX + t * (x - parentX), 0.3 - t * 0.6, 0);
         }
       }
@@ -143,7 +156,7 @@ const shapes = [
     name: "NEURAL_NET",
     points: (() => {
       const pts: number[] = [];
-      const layers = [3, 5, 4, 2]; // neurons per layer
+      const layers = [4, 6, 5, 3]; // more neurons per layer
       const layerSpacing = 0.5;
       
       for (let l = 0; l < layers.length; l++) {
@@ -151,19 +164,19 @@ const shapes = [
         const neurons = layers[l];
         for (let n = 0; n < neurons; n++) {
           const y = (n - (neurons - 1) / 2) * 0.35;
-          // Neuron circle
-          for (let i = 0; i < 12; i++) {
-            const angle = (i / 12) * Math.PI * 2;
-            pts.push(x + Math.cos(angle) * 0.08, y + Math.sin(angle) * 0.08, 0);
+          // Neuron circle - more detailed
+          for (let i = 0; i < 20; i++) {
+            const angle = (i / 20) * Math.PI * 2;
+            pts.push(x + Math.cos(angle) * 0.1, y + Math.sin(angle) * 0.1, 0);
           }
-          // Connections to next layer
+          // Connections to next layer - denser lines
           if (l < layers.length - 1) {
             const nextX = (l + 1 - 1.5) * layerSpacing;
             const nextNeurons = layers[l + 1];
             for (let nn = 0; nn < nextNeurons; nn++) {
               const nextY = (nn - (nextNeurons - 1) / 2) * 0.35;
-              for (let i = 0; i < 8; i++) {
-                const t = i / 8;
+              for (let i = 0; i < 15; i++) {
+                const t = i / 15;
                 pts.push(x + t * (nextX - x), y + t * (nextY - y), 0);
               }
             }
@@ -234,7 +247,7 @@ function ParticleCloud() {
   const [shapeIndex, setShapeIndex] = useState(0);
   const [phase, setPhase] = useState<"forming" | "formed" | "bursting">("forming");
   
-  const particleCount = 8000;
+  const particleCount = 20000; // Increased particle count for more dots
   
   // Random starting positions for particles
   const randomPositions = useMemo(() => {
@@ -251,12 +264,13 @@ function ParticleCloud() {
   const targetShape = useMemo(() => {
     const shape = shapes[shapeIndex];
     const shapePositions = new Float32Array(particleCount * 3);
+    const scale = 2.5; // Made shapes significantly bigger
+    const jitter = 0.02; // Reduced jitter further for more accurate shapes
     for (let i = 0; i < particleCount; i++) {
       const idx = (i % (shape.points.length / 3)) * 3;
-      const jitter = 0.08;
-      shapePositions[i * 3] = shape.points[idx] + (Math.random() - 0.5) * jitter;
-      shapePositions[i * 3 + 1] = shape.points[idx + 1] + (Math.random() - 0.5) * jitter;
-      shapePositions[i * 3 + 2] = shape.points[idx + 2] + (Math.random() - 0.5) * jitter;
+      shapePositions[i * 3] = shape.points[idx] * scale + (Math.random() - 0.5) * jitter;
+      shapePositions[i * 3 + 1] = shape.points[idx + 1] * scale + (Math.random() - 0.5) * jitter;
+      shapePositions[i * 3 + 2] = shape.points[idx + 2] * scale + (Math.random() - 0.5) * jitter;
     }
     return shapePositions;
   }, [shapeIndex]);
@@ -272,12 +286,12 @@ function ParticleCloud() {
   }, []);
 
   useEffect(() => {
-    const formTimer = setTimeout(() => setPhase("formed"), 2000);
-    const holdTimer = setTimeout(() => setPhase("bursting"), 4500);
+    const formTimer = setTimeout(() => setPhase("formed"), 6000); // Slower timing
+    const holdTimer = setTimeout(() => setPhase("bursting"), 12000); // Longer hold
     const burstTimer = setTimeout(() => {
       setShapeIndex((prev) => (prev + 1) % shapes.length);
       setPhase("forming");
-    }, 6000);
+    }, 15000); // Slower complete cycle
     
     return () => {
       clearTimeout(formTimer);
@@ -292,30 +306,30 @@ function ParticleCloud() {
     const positions = pointsRef.current.geometry.attributes.position.array;
     
     if (phase === "forming") {
-      // Move particles toward target shape
+      // Move particles toward target shape - much slower
       for (let i = 0; i < particleCount; i++) {
         const i3 = i * 3;
         const dx = targetShape[i3] - positions[i3];
         const dy = targetShape[i3 + 1] - positions[i3 + 1];
         const dz = targetShape[i3 + 2] - positions[i3 + 2];
-        positions[i3] += dx * 0.05;
-        positions[i3 + 1] += dy * 0.05;
-        positions[i3 + 2] += dz * 0.05;
+        positions[i3] += dx * 0.015; // Reduced from 0.03 for slower formation
+        positions[i3 + 1] += dy * 0.015;
+        positions[i3 + 2] += dz * 0.015;
       }
     } else if (phase === "formed") {
-      // Gentle floating around shape
+      // Gentle floating around shape - slower
       for (let i = 0; i < particleCount; i++) {
         const i3 = i * 3;
-        positions[i3] += Math.sin(Date.now() * 0.001 + i) * 0.002;
-        positions[i3 + 1] += Math.cos(Date.now() * 0.001 + i) * 0.002;
+        positions[i3] += Math.sin(Date.now() * 0.0004 + i) * 0.001; // Slower floating
+        positions[i3 + 1] += Math.cos(Date.now() * 0.0004 + i) * 0.001;
       }
     } else if (phase === "bursting") {
-      // Explode outward
+      // Explode outward - slower
       for (let i = 0; i < particleCount; i++) {
         const i3 = i * 3;
-        positions[i3] += velocities[i3] * 3;
-        positions[i3 + 1] += velocities[i3 + 1] * 3;
-        positions[i3 + 2] += velocities[i3 + 2] * 3;
+        positions[i3] += velocities[i3] * 1.2; // Reduced from 2 for slower burst
+        positions[i3 + 1] += velocities[i3 + 1] * 1.2;
+        positions[i3 + 2] += velocities[i3 + 2] * 1.2;
       }
     }
     
@@ -327,10 +341,10 @@ function ParticleCloud() {
       <PointMaterial
         transparent
         color="#dccab0"
-        size={0.015}
+        size={0.025} // Increased dot size
         sizeAttenuation={true}
         depthWrite={false}
-        opacity={phase === "bursting" ? 0.3 : 0.8}
+        opacity={phase === "bursting" ? 0.4 : 0.9} // Slightly higher opacity
         blending={THREE.AdditiveBlending}
       />
     </Points>
