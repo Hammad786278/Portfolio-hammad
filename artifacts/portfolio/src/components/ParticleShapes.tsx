@@ -14,99 +14,216 @@ class WebGLBoundary extends Component<{ children: ReactNode; fallback: ReactNode
   }
 }
 
-// Programming shapes defined as point positions
+// Unique programming-related shapes defined as point positions
 const shapes = [
-  // Curly braces {}
+  // CPU Chip/Microprocessor
   {
-    name: "CURLY_BRACES",
+    name: "CPU_CHIP",
     points: (() => {
       const pts: number[] = [];
-      // Left brace
+      // Main square chip
+      for (let i = 0; i < 60; i++) {
+        const angle = (i / 60) * Math.PI * 2;
+        pts.push(Math.cos(angle) * 0.6, Math.sin(angle) * 0.6, 0);
+      }
+      // Inner circuits
       for (let i = 0; i < 40; i++) {
-        const t = (i / 40) * Math.PI * 2;
-        const x = -0.8 + Math.sin(t) * 0.15;
-        const y = (i / 40) * 2 - 1;
+        const angle = (i / 40) * Math.PI * 2;
+        pts.push(Math.cos(angle) * 0.3, Math.sin(angle) * 0.3, 0);
+      }
+      // Pins radiating out
+      for (let side = 0; side < 4; side++) {
+        for (let pin = 0; pin < 8; pin++) {
+          const offset = (pin - 3.5) * 0.2;
+          if (side === 0) { // top
+            pts.push(offset, 0.6, 0);
+            pts.push(offset, 0.8, 0);
+          } else if (side === 1) { // right
+            pts.push(0.6, offset, 0);
+            pts.push(0.8, offset, 0);
+          } else if (side === 2) { // bottom
+            pts.push(offset, -0.6, 0);
+            pts.push(offset, -0.8, 0);
+          } else { // left
+            pts.push(-0.6, offset, 0);
+            pts.push(-0.8, offset, 0);
+          }
+        }
+      }
+      return new Float32Array(pts);
+    })(),
+  },
+  // Binary Tree
+  {
+    name: "BINARY_TREE",
+    points: (() => {
+      const pts: number[] = [];
+      // Root node
+      for (let i = 0; i < 15; i++) {
+        const angle = (i / 15) * Math.PI * 2;
+        pts.push(Math.cos(angle) * 0.1, 0.8 + Math.sin(angle) * 0.1, 0);
+      }
+      // Level 1 - 2 nodes
+      for (let node = 0; node < 2; node++) {
+        const x = (node - 0.5) * 0.8;
+        for (let i = 0; i < 12; i++) {
+          const angle = (i / 12) * Math.PI * 2;
+          pts.push(x + Math.cos(angle) * 0.08, 0.3 + Math.sin(angle) * 0.08, 0);
+        }
+        // Connection lines
+        for (let i = 0; i < 20; i++) {
+          const t = i / 20;
+          pts.push(t * x, 0.8 - t * 0.5, 0);
+        }
+      }
+      // Level 2 - 4 leaf nodes
+      for (let node = 0; node < 4; node++) {
+        const x = (node - 1.5) * 0.5;
+        for (let i = 0; i < 10; i++) {
+          const angle = (i / 10) * Math.PI * 2;
+          pts.push(x + Math.cos(angle) * 0.06, -0.3 + Math.sin(angle) * 0.06, 0);
+        }
+        // Connection to parent
+        const parentX = Math.floor(node / 2) === 0 ? -0.4 : 0.4;
+        for (let i = 0; i < 15; i++) {
+          const t = i / 15;
+          pts.push(parentX + t * (x - parentX), 0.3 - t * 0.6, 0);
+        }
+      }
+      return new Float32Array(pts);
+    })(),
+  },
+  // Git Branch Graph
+  {
+    name: "GIT_GRAPH",
+    points: (() => {
+      const pts: number[] = [];
+      // Main branch (master/main)
+      for (let i = 0; i < 50; i++) {
+        pts.push((i / 50) * 1.6 - 0.8, 0, 0);
+        // Commit nodes
+        if (i % 10 === 0) {
+          for (let j = 0; j < 8; j++) {
+            const angle = (j / 8) * Math.PI * 2;
+            pts.push((i / 50) * 1.6 - 0.8 + Math.cos(angle) * 0.08, Math.sin(angle) * 0.08, 0);
+          }
+        }
+      }
+      // Feature branch 1
+      for (let i = 0; i < 30; i++) {
+        const t = i / 30;
+        const x = -0.3 + t * 0.8;
+        const y = 0.4 + Math.sin(t * Math.PI) * 0.2;
         pts.push(x, y, 0);
+        if (i % 8 === 0) {
+          for (let j = 0; j < 6; j++) {
+            const angle = (j / 6) * Math.PI * 2;
+            pts.push(x + Math.cos(angle) * 0.06, y + Math.sin(angle) * 0.06, 0);
+          }
+        }
       }
-      // Right brace
-      for (let i = 0; i < 40; i++) {
-        const t = (i / 40) * Math.PI * 2;
-        const x = 0.8 - Math.sin(t) * 0.15;
-        const y = (i / 40) * 2 - 1;
+      // Feature branch 2
+      for (let i = 0; i < 25; i++) {
+        const t = i / 25;
+        const x = 0.1 + t * 0.6;
+        const y = -0.4 - Math.sin(t * Math.PI) * 0.15;
         pts.push(x, y, 0);
+        if (i % 7 === 0) {
+          for (let j = 0; j < 6; j++) {
+            const angle = (j / 6) * Math.PI * 2;
+            pts.push(x + Math.cos(angle) * 0.06, y + Math.sin(angle) * 0.06, 0);
+          }
+        }
       }
       return new Float32Array(pts);
     })(),
   },
-  // Angle brackets <>
+  // Neural Network
   {
-    name: "ANGLE_BRACKETS",
+    name: "NEURAL_NET",
     points: (() => {
       const pts: number[] = [];
-      // Left <
-      for (let i = 0; i < 30; i++) {
-        const t = i / 30;
-        pts.push(-0.8 + t * 0.4, 1 - t * 2, 0);
-      }
-      for (let i = 0; i < 30; i++) {
-        const t = i / 30;
-        pts.push(-0.4 - t * 0.4, -1 + t * 2, 0);
-      }
-      // Right >
-      for (let i = 0; i < 30; i++) {
-        const t = i / 30;
-        pts.push(0.4 + t * 0.4, 1 - t * 2, 0);
-      }
-      for (let i = 0; i < 30; i++) {
-        const t = i / 30;
-        pts.push(0.8 - t * 0.4, -1 + t * 2, 0);
+      const layers = [3, 5, 4, 2]; // neurons per layer
+      const layerSpacing = 0.5;
+      
+      for (let l = 0; l < layers.length; l++) {
+        const x = (l - 1.5) * layerSpacing;
+        const neurons = layers[l];
+        for (let n = 0; n < neurons; n++) {
+          const y = (n - (neurons - 1) / 2) * 0.35;
+          // Neuron circle
+          for (let i = 0; i < 12; i++) {
+            const angle = (i / 12) * Math.PI * 2;
+            pts.push(x + Math.cos(angle) * 0.08, y + Math.sin(angle) * 0.08, 0);
+          }
+          // Connections to next layer
+          if (l < layers.length - 1) {
+            const nextX = (l + 1 - 1.5) * layerSpacing;
+            const nextNeurons = layers[l + 1];
+            for (let nn = 0; nn < nextNeurons; nn++) {
+              const nextY = (nn - (nextNeurons - 1) / 2) * 0.35;
+              for (let i = 0; i < 8; i++) {
+                const t = i / 8;
+                pts.push(x + t * (nextX - x), y + t * (nextY - y), 0);
+              }
+            }
+          }
+        }
       }
       return new Float32Array(pts);
     })(),
   },
-  // Square brackets []
+  // Algorithm Flow / Flowchart
   {
-    name: "SQUARE_BRACKETS",
+    name: "ALGORITHM_FLOW",
     points: (() => {
       const pts: number[] = [];
-      // Left [
-      for (let i = 0; i < 30; i++) pts.push(-0.8, (i / 30) * 2 - 1, 0);
-      for (let i = 0; i < 20; i++) pts.push(-0.8 + (i / 20) * 0.3, 1, 0);
-      for (let i = 0; i < 20; i++) pts.push(-0.8 + (i / 20) * 0.3, -1, 0);
-      // Right ]
-      for (let i = 0; i < 30; i++) pts.push(0.8, (i / 30) * 2 - 1, 0);
-      for (let i = 0; i < 20; i++) pts.push(0.5 + (i / 20) * 0.3, 1, 0);
-      for (let i = 0; i < 20; i++) pts.push(0.5 + (i / 20) * 0.3, -1, 0);
-      return new Float32Array(pts);
-    })(),
-  },
-  // Function arrow =>
-  {
-    name: "ARROW",
-    points: (() => {
-      const pts: number[] = [];
-      // Line
-      for (let i = 0; i < 40; i++) pts.push((i / 40) * 1.2 - 0.6, 0, 0);
-      // Arrow head
+      // Start circle
       for (let i = 0; i < 20; i++) {
-        const t = i / 20;
-        pts.push(0.6 - t * 0.3, t * 0.4, 0);
-        pts.push(0.6 - t * 0.3, -t * 0.4, 0);
+        const angle = (i / 20) * Math.PI * 2;
+        pts.push(Math.cos(angle) * 0.12, 0.8 + Math.sin(angle) * 0.12, 0);
       }
-      return new Float32Array(pts);
-    })(),
-  },
-  // Lambda λ
-  {
-    name: "LAMBDA",
-    points: (() => {
-      const pts: number[] = [];
-      for (let i = 0; i < 40; i++) {
-        const t = i / 40;
-        const x = -0.6 + t * 1.2;
-        const y = Math.abs(Math.sin(t * Math.PI * 2)) * 0.8;
-        pts.push(x, y, 0);
+      // Arrow down
+      for (let i = 0; i < 15; i++) pts.push(0, 0.8 - (i / 15) * 0.4, 0);
+      
+      // Decision diamond
+      const diamondPts = [
+        [0, 0.3], [0.25, 0.1], [0, -0.1], [-0.25, 0.1], [0, 0.3]
+      ];
+      for (let i = 0; i < diamondPts.length - 1; i++) {
+        for (let j = 0; j < 12; j++) {
+          const t = j / 12;
+          const x = diamondPts[i][0] + t * (diamondPts[i + 1][0] - diamondPts[i][0]);
+          const y = diamondPts[i][1] + t * (diamondPts[i + 1][1] - diamondPts[i][1]);
+          pts.push(x, y, 0);
+        }
       }
+      
+      // Left path
+      for (let i = 0; i < 12; i++) pts.push(-0.25, 0.1 - (i / 12) * 0.3, 0);
+      for (let i = 0; i < 15; i++) {
+        pts.push(-0.5 + (i / 15) * 0.3, -0.2, 0);
+        pts.push(-0.5 + (i / 15) * 0.3, -0.5, 0);
+        pts.push(-0.5, -0.2 - (i / 15) * 0.3, 0);
+        pts.push(-0.2, -0.2 - (i / 15) * 0.3, 0);
+      }
+      
+      // Right path
+      for (let i = 0; i < 12; i++) pts.push(0.25, 0.1 - (i / 12) * 0.3, 0);
+      for (let i = 0; i < 15; i++) {
+        pts.push(0.2 + (i / 15) * 0.3, -0.2, 0);
+        pts.push(0.2 + (i / 15) * 0.3, -0.5, 0);
+        pts.push(0.2, -0.2 - (i / 15) * 0.3, 0);
+        pts.push(0.5, -0.2 - (i / 15) * 0.3, 0);
+      }
+      
+      // Merge and end
+      for (let i = 0; i < 10; i++) pts.push(0, -0.5 - (i / 10) * 0.2, 0);
+      for (let i = 0; i < 15; i++) {
+        const angle = (i / 15) * Math.PI * 2;
+        pts.push(Math.cos(angle) * 0.12, -0.8 + Math.sin(angle) * 0.12, 0);
+      }
+      
       return new Float32Array(pts);
     })(),
   },
@@ -117,7 +234,7 @@ function ParticleCloud() {
   const [shapeIndex, setShapeIndex] = useState(0);
   const [phase, setPhase] = useState<"forming" | "formed" | "bursting">("forming");
   
-  const particleCount = 3000;
+  const particleCount = 8000;
   
   // Random starting positions for particles
   const randomPositions = useMemo(() => {
