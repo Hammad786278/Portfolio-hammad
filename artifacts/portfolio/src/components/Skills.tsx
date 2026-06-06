@@ -240,7 +240,7 @@ export default function Skills() {
             <div className="w-full h-52 opacity-70 pointer-events-none">
               {webglOk ? (
                 <WebGLBoundary fallback={null}>
-                  <Canvas camera={{ position: [0, 0, 8], fov: 45 }} gl={{ antialias: false, powerPreference: "high-performance" }} dpr={[1, 1.5]} frameloop="demand">
+                  <Canvas camera={{ position: [0, 0, 8], fov: 45 }} gl={{ antialias: false, powerPreference: "high-performance", stencil: false }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
                     <Suspense fallback={null}>
                       <ambientLight intensity={0.5} />
                       <pointLight position={[10, 10, 10]} intensity={1} color="#dccab0" />

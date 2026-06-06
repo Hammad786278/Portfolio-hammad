@@ -66,7 +66,7 @@ export default function Contact() {
       <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] opacity-20 pointer-events-none hidden lg:block">
         {webglOk ? (
           <WebGLBoundary fallback={<CanvasFallback />}>
-            <Canvas camera={{ position: [0, 0, 5], fov: 45 }} gl={{ antialias: false, powerPreference: "high-performance" }} dpr={[1, 1.5]} frameloop="demand">
+            <Canvas camera={{ position: [0, 0, 5], fov: 45 }} gl={{ antialias: false, powerPreference: "high-performance", stencil: false }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
               <Suspense fallback={null}>
                 <ambientLight intensity={0.5} />
                 <directionalLight position={[10, 10, 5]} intensity={1} color="#dccab0" />

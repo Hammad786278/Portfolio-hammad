@@ -129,6 +129,26 @@
       cursor: none !important;
     }
   }
+  
+  /* Smooth scroll behavior */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* GPU acceleration for animations */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Optimize transforms */
+  [class*="transition"],
+  [class*="animate"],
+  [class*="hover:"] {
+    will-change: auto;
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
 }
 
 .noise-bg {
@@ -148,6 +168,11 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+body {
+  overscroll-behavior: none;
 }
 
 .text-balance {
@@ -156,6 +181,14 @@ html {
 
 .will-change-transform {
   will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Smoother animations */
+@media (prefers-reduced-motion: no-preference) {
+  * {
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
 }
 
 /* Custom Cursor */

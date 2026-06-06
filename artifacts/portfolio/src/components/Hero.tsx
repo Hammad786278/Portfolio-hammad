@@ -49,14 +49,14 @@ function DistortedCore() {
   const meshRef = useRef<any>();
   const matRef = useRef<any>();
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
     const time = state.clock.getElapsedTime();
     if (matRef.current) {
-      matRef.current.distort = 0.3 + Math.sin(time * 0.5) * 0.1;
+      matRef.current.distort = 0.3 + Math.sin(time * 0.4) * 0.08;
     }
     if (meshRef.current) {
-      meshRef.current.rotation.x = time * 0.1;
-      meshRef.current.rotation.y = time * 0.15;
+      meshRef.current.rotation.x = time * 0.08;
+      meshRef.current.rotation.y = time * 0.12;
     }
   });
 
@@ -104,8 +104,14 @@ export default function Hero() {
             <Canvas
               dpr={[1, 1.5]}
               camera={{ position: [0, 0, 6], fov: 45 }}
-              gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
-              frameloop="demand"
+              gl={{ 
+                antialias: false, 
+                alpha: true, 
+                powerPreference: "high-performance",
+                stencil: false,
+                depth: true
+              }}
+              performance={{ min: 0.5 }}
               onCreated={({ gl }) => {
                 gl.domElement.addEventListener("webglcontextlost", (e) => e.preventDefault());
               }}
@@ -129,7 +135,7 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="mb-8 inline-block px-4 py-1.5 rounded-full border border-primary/20 bg-background/40 backdrop-blur-md"
           >
             <span className="font-mono text-xs uppercase tracking-widest text-primary flex items-center gap-2">
@@ -161,7 +167,7 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 1, ease: "easeOut" }}
+            transition={{ duration: 0.6, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-col gap-6 ml-[10vw] max-w-2xl"
           >
              <p className="text-xl md:text-3xl text-muted-foreground font-light tracking-wide text-balance">
