@@ -48,18 +48,6 @@ function ParticleField(props: any) {
 function DistortedCore() {
   const meshRef = useRef<any>();
   const matRef = useRef<any>();
-  const mouseRef = useRef({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseRef.current = {
-        x: (e.clientX / window.innerWidth) * 2 - 1,
-        y: -(e.clientY / window.innerHeight) * 2 + 1,
-      };
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
 
   useFrame((state, delta) => {
     const time = state.clock.getElapsedTime();
@@ -67,17 +55,8 @@ function DistortedCore() {
       matRef.current.distort = 0.3 + Math.sin(time * 0.4) * 0.08;
     }
     if (meshRef.current) {
-      // Auto-rotation
-      const autoRotX = time * 0.08;
-      const autoRotY = time * 0.12;
-      
-      // Mouse influence (subtle and playful)
-      const mouseInfluenceX = mouseRef.current.y * 0.3;
-      const mouseInfluenceY = mouseRef.current.x * 0.3;
-      
-      // Smooth blend
-      meshRef.current.rotation.x = autoRotX + mouseInfluenceX;
-      meshRef.current.rotation.y = autoRotY + mouseInfluenceY;
+      meshRef.current.rotation.x = time * 0.08;
+      meshRef.current.rotation.y = time * 0.12;
     }
   });
 
