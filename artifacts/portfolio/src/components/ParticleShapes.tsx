@@ -237,37 +237,45 @@ export default function ParticleShapes() {
 
   return (
     <section className="relative w-full py-40 bg-background border-t border-border/20 overflow-hidden">
-      <div className="absolute inset-0 z-0">
-        {webglOk ? (
-          <WebGLBoundary fallback={null}>
-            <Canvas camera={{ position: [0, 0, 5], fov: 50 }} gl={{ antialias: false, powerPreference: "high-performance" }} dpr={[1, 1.5]}>
-              <Suspense fallback={null}>
-                <ambientLight intensity={0.5} />
-                <ParticleCloud />
-              </Suspense>
-            </Canvas>
-          </WebGLBoundary>
-        ) : null}
-      </div>
-
       <div className="container relative z-10 mx-auto px-6 max-w-7xl">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center"
-        >
-          <div className="font-mono text-xs text-primary mb-8 tracking-[0.2em] uppercase">
-            / CODE IN MOTION
+        <div className="flex flex-col lg:flex-row gap-20 items-center">
+          
+          {/* Left: Text Content */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="w-full lg:w-1/2"
+          >
+            <div className="font-mono text-xs text-primary mb-8 tracking-[0.2em] uppercase">
+              / CODE IN MOTION
+            </div>
+            <h2 className="text-[clamp(3rem,8vw,8rem)] font-serif leading-[0.9] tracking-tighter text-foreground mb-8">
+              Living <span className="text-muted-foreground italic">Syntax</span>
+            </h2>
+            <p className="text-xl text-muted-foreground leading-relaxed">
+              Watch as thousands of particles coalesce into the symbols that define our craft — forming, holding, then exploding into new patterns. Code is never static; it evolves.
+            </p>
+          </motion.div>
+
+          {/* Right: 3D Particle Animation */}
+          <div className="w-full lg:w-1/2 h-[500px] relative">
+            <div className="absolute inset-0">
+              {webglOk ? (
+                <WebGLBoundary fallback={null}>
+                  <Canvas camera={{ position: [0, 0, 5], fov: 50 }} gl={{ antialias: false, powerPreference: "high-performance" }} dpr={[1, 1.5]}>
+                    <Suspense fallback={null}>
+                      <ambientLight intensity={0.5} />
+                      <ParticleCloud />
+                    </Suspense>
+                  </Canvas>
+                </WebGLBoundary>
+              ) : null}
+            </div>
           </div>
-          <h2 className="text-[clamp(3rem,8vw,8rem)] font-serif leading-none tracking-tight text-foreground mb-8">
-            Living <span className="text-muted-foreground italic">Syntax</span>
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Watch as thousands of particles coalesce into the symbols that define our craft — forming, holding, then exploding into new patterns. Code is never static; it evolves.
-          </p>
-        </motion.div>
+
+        </div>
       </div>
     </section>
   );
