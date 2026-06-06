@@ -28,11 +28,31 @@ function CanvasFallback() {
 function ParticleField(props: any) {
   const ref = useRef<any>();
   const sphere = random.inSphere(new Float32Array(2000), { radius: 1.8 });
+  const mouseRef = useRef({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseRef.current = {
+        x: (e.clientX / window.innerWidth) * 2 - 1,
+        y: -(e.clientY / window.innerHeight) * 2 + 1,
+      };
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   useFrame((state, delta) => {
+    const time = state.clock.getElapsedTime();
     if (ref.current) {
-      ref.current.rotation.x -= delta / 20;
-      ref.current.rotation.y -= delta / 25;
+      // Organic rotation with multiple sine waves
+      ref.current.rotation.x -= delta / 20 + Math.sin(time * 0.3) * 0.001;
+      ref.current.rotation.y -= delta / 25 + Math.cos(time * 0.2) * 0.001;
+      
+      // Subtle mouse attraction
+      const attractX = mouseRef.current.x * 0.08;
+      const attractY = mouseRef.current.y * 0.08;
+      ref.current.rotation.x += attractY * delta;
+      ref.current.rotation.y += attractX * delta;
     }
   });
 
@@ -48,15 +68,46 @@ function ParticleField(props: any) {
 function DistortedCore() {
   const meshRef = useRef<any>();
   const matRef = useRef<any>();
+  const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseRef.current.targetX = (e.clientX / window.innerWidth) * 2 - 1;
+      mouseRef.current.targetY = -(e.clientY / window.innerHeight) * 2 + 1;
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   useFrame((state, delta) => {
     const time = state.clock.getElapsedTime();
+    
+    // Smooth mouse follow with spring physics
+    mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * 0.05;
+    mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * 0.05;
+    
+    // Dramatic pulsing distortion
     if (matRef.current) {
-      matRef.current.distort = 0.3 + Math.sin(time * 0.4) * 0.08;
+      const pulse = Math.sin(time * 0.8) * 0.12;
+      const breathe = Math.sin(time * 0.3) * 0.05;
+      matRef.current.distort = 0.35 + pulse + breathe;
     }
+    
     if (meshRef.current) {
-      meshRef.current.rotation.x = time * 0.08;
-      meshRef.current.rotation.y = time * 0.12;
+      // Base rotation with varying speeds for organic feel
+      const rotX = time * 0.1 + Math.sin(time * 0.4) * 0.2;
+      const rotY = time * 0.15 + Math.cos(time * 0.3) * 0.15;
+      
+      // Cursor influence - dramatic but smooth
+      const mouseX = mouseRef.current.x * 0.8;
+      const mouseY = mouseRef.current.y * 0.8;
+      
+      meshRef.current.rotation.x = rotX + mouseY;
+      meshRef.current.rotation.y = rotY + mouseX;
+      
+      // Subtle scale breathing effect
+      const scaleBreath = 1.4 + Math.sin(time * 0.6) * 0.04;
+      meshRef.current.scale.set(scaleBreath, scaleBreath, scaleBreath);
     }
   });
 
