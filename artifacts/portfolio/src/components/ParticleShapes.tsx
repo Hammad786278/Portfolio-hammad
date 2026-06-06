@@ -1,4 +1,4 @@
-import { useRef, Suspense, Component, useState, useEffect, useMemo, type ReactNode } from "react";
+import { useRef, Suspense, Component, useState, useEffect, useMemo, type ReactNode, lazy } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
 import { motion } from "framer-motion";
@@ -324,7 +324,7 @@ const shapes = [
   },
 ];
 
-function ParticleCloud() {
+function ParticleCloud({ isMobile }: { isMobile: boolean }) {
   const pointsRef = useRef<any>();
   const [shapeIndex, setShapeIndex] = useState(0);
   const [phase, setPhase] = useState<"forming" | "formed" | "bursting">("forming");
@@ -382,14 +382,15 @@ function ParticleCloud() {
     };
   }, [shapeIndex]);
 
-  useFrame(() => {
+  useFrame((state, delta) => {
     if (!pointsRef.current) return;
     
     const positions = pointsRef.current.geometry.attributes.position.array;
+    const updateStep = isMobile ? 2 : 1; // Update every other particle on mobile for performance
     
     if (phase === "forming") {
       // Move particles toward target shape - balanced speed
-      for (let i = 0; i < particleCount; i++) {
+      for (let i = 0; i < particleCount; i += updateStep) {
         const i3 = i * 3;
         const dx = targetShape[i3] - positions[i3];
         const dy = targetShape[i3 + 1] - positions[i3 + 1];
@@ -400,14 +401,15 @@ function ParticleCloud() {
       }
     } else if (phase === "formed") {
       // Gentle floating around shape - moderate speed
-      for (let i = 0; i < particleCount; i++) {
+      const time = state.clock.elapsedTime;
+      for (let i = 0; i < particleCount; i += updateStep) {
         const i3 = i * 3;
-        positions[i3] += Math.sin(Date.now() * 0.0006 + i) * 0.0012; // Moderate floating
-        positions[i3 + 1] += Math.cos(Date.now() * 0.0006 + i) * 0.0012;
+        positions[i3] += Math.sin(time * 0.6 + i) * 0.0012; // Moderate floating
+        positions[i3 + 1] += Math.cos(time * 0.6 + i) * 0.0012;
       }
     } else if (phase === "bursting") {
       // Explode outward - moderate speed
-      for (let i = 0; i < particleCount; i++) {
+      for (let i = 0; i < particleCount; i += updateStep) {
         const i3 = i * 3;
         positions[i3] += velocities[i3] * 1.6; // Moderate burst speed
         positions[i3 + 1] += velocities[i3 + 1] * 1.6;
@@ -443,13 +445,36 @@ function detectWebGL(): boolean {
 
 export default function ParticleShapes() {
   const [webglOk, setWebglOk] = useState(false);
+  const [isInView, setIsInView] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
   
   useEffect(() => {
     setWebglOk(detectWebGL());
+    setIsMobile(window.innerWidth < 768);
+    
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: 0.1, rootMargin: '100px' }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <section className="relative w-full py-40 bg-background border-t border-border/20 overflow-hidden">
+    <section ref={sectionRef} className="relative w-full py-40 bg-background border-t border-border/20 overflow-hidden">
       <div className="container relative z-10 mx-auto px-6 max-w-7xl">
         <div className="flex flex-col lg:flex-row gap-20 items-center">
           
@@ -475,12 +500,24 @@ export default function ParticleShapes() {
           {/* Right: 3D Particle Animation */}
           <div className="w-full lg:w-1/2 h-[500px] relative">
             <div className="absolute inset-0">
-              {webglOk ? (
+              {webglOk && isInView ? (
                 <WebGLBoundary fallback={null}>
-                  <Canvas camera={{ position: [0, 0, 5], fov: 50 }} gl={{ antialias: false, powerPreference: "high-performance" }} dpr={[1, 1.5]}>
+                  <Canvas 
+                    camera={{ position: [0, 0, 5], fov: 50 }} 
+                    gl={{ 
+                      antialias: false, 
+                      powerPreference: "high-performance",
+                      alpha: false,
+                      stencil: false,
+                      depth: true
+                    }} 
+                    dpr={isMobile ? 0.75 : 1}
+                    frameloop="always"
+                    performance={{ min: 0.5 }}
+                  >
                     <Suspense fallback={null}>
                       <ambientLight intensity={0.5} />
-                      <ParticleCloud />
+                      <ParticleCloud isMobile={isMobile} />
                     </Suspense>
                   </Canvas>
                 </WebGLBoundary>
