@@ -14,227 +14,309 @@ class WebGLBoundary extends Component<{ children: ReactNode; fallback: ReactNode
   }
 }
 
-// Unique programming-related shapes defined as point positions
+// Exciting AI and programming-related shapes that are visually stunning
 const shapes = [
-  // CPU Chip/Microprocessor
+  // AI Brain Neural Network - Complex and Beautiful
   {
-    name: "CPU_CHIP",
+    name: "AI_BRAIN",
     points: (() => {
       const pts: number[] = [];
-      // Main square chip - more points for better definition
-      for (let i = 0; i < 100; i++) {
-        const angle = (i / 100) * Math.PI * 2;
-        pts.push(Math.cos(angle) * 0.6, Math.sin(angle) * 0.6, 0);
+      
+      // Brain outline (organic curves)
+      for (let i = 0; i < 200; i++) {
+        const angle = (i / 200) * Math.PI * 2;
+        const radius = 0.7 + 0.15 * Math.sin(angle * 3) + 0.1 * Math.cos(angle * 5);
+        pts.push(Math.cos(angle) * radius, Math.sin(angle) * radius * 0.8, 0);
       }
-      // Inner circuits - multiple layers
-      for (let layer = 0; layer < 3; layer++) {
-        const radius = 0.45 - layer * 0.1;
-        for (let i = 0; i < 80; i++) {
-          const angle = (i / 80) * Math.PI * 2;
+      
+      // Neural pathways (lightning-like patterns)
+      const centers = [
+        [-0.3, 0.2], [0.3, 0.2], [-0.2, -0.3], [0.2, -0.3], [0, 0.1], [-0.1, -0.1], [0.1, -0.1]
+      ];
+      
+      for (let c = 0; c < centers.length; c++) {
+        const [cx, cy] = centers[c];
+        // Neural nodes
+        for (let i = 0; i < 25; i++) {
+          const angle = (i / 25) * Math.PI * 2;
+          pts.push(cx + Math.cos(angle) * 0.08, cy + Math.sin(angle) * 0.08, 0);
+        }
+        
+        // Connections to other nodes
+        for (let other = c + 1; other < centers.length; other++) {
+          const [ox, oy] = centers[other];
+          const distance = Math.sqrt((ox - cx) ** 2 + (oy - cy) ** 2);
+          if (distance < 0.6) {
+            for (let i = 0; i < 30; i++) {
+              const t = i / 30;
+              const x = cx + t * (ox - cx) + 0.05 * Math.sin(t * Math.PI * 4);
+              const y = cy + t * (oy - cy) + 0.03 * Math.cos(t * Math.PI * 6);
+              pts.push(x, y, 0);
+            }
+          }
+        }
+      }
+      
+      return new Float32Array(pts);
+    })(),
+  },
+
+  // Molecular DNA Helix - Programming DNA
+  {
+    name: "DNA_HELIX",
+    points: (() => {
+      const pts: number[] = [];
+      
+      // Double helix structure
+      for (let i = 0; i < 400; i++) {
+        const t = (i / 400) * 4 * Math.PI;
+        const y = (i / 400) * 1.6 - 0.8;
+        
+        // First strand
+        const x1 = Math.cos(t) * 0.3;
+        const z1 = Math.sin(t) * 0.2;
+        pts.push(x1, y, z1);
+        
+        // Second strand (180 degrees offset)
+        const x2 = Math.cos(t + Math.PI) * 0.3;
+        const z2 = Math.sin(t + Math.PI) * 0.2;
+        pts.push(x2, y, z2);
+        
+        // Base pairs connecting the strands
+        if (i % 10 === 0) {
+          for (let j = 0; j < 8; j++) {
+            const connT = j / 8;
+            pts.push(x1 + connT * (x2 - x1), y, z1 + connT * (z2 - z1));
+          }
+        }
+      }
+      
+      return new Float32Array(pts);
+    })(),
+  },
+
+  // Code Matrix Rain Effect
+  {
+    name: "MATRIX_CODE",
+    points: (() => {
+      const pts: number[] = [];
+      
+      // Vertical code streams
+      for (let col = 0; col < 12; col++) {
+        const x = (col - 5.5) * 0.15;
+        
+        for (let row = 0; row < 60; row++) {
+          const y = (row / 60) * 1.6 - 0.8;
+          
+          // Create varying brightness effect
+          if (Math.random() > 0.3) {
+            pts.push(x + (Math.random() - 0.5) * 0.03, y, 0);
+          }
+        }
+        
+        // Bright leading character
+        for (let i = 0; i < 15; i++) {
+          const angle = (i / 15) * Math.PI * 2;
+          const brightY = 0.7 - (col * 0.1) % 1.4;
+          pts.push(x + Math.cos(angle) * 0.05, brightY + Math.sin(angle) * 0.05, 0);
+        }
+      }
+      
+      // Digital rain drops
+      for (let drop = 0; drop < 50; drop++) {
+        const x = (Math.random() - 0.5) * 1.4;
+        const startY = 0.8;
+        
+        for (let i = 0; i < 20; i++) {
+          const y = startY - i * 0.08;
+          pts.push(x, y, 0);
+        }
+      }
+      
+      return new Float32Array(pts);
+    })(),
+  },
+
+  // Quantum Computing Circuit
+  {
+    name: "QUANTUM_CIRCUIT",
+    points: (() => {
+      const pts: number[] = [];
+      
+      // Quantum gates and qubits
+      const qubits = 5;
+      const gates = 8;
+      
+      for (let q = 0; q < qubits; q++) {
+        const y = (q - 2) * 0.25;
+        
+        // Qubit line
+        for (let i = 0; i < 100; i++) {
+          const x = (i / 100) * 1.6 - 0.8;
+          pts.push(x, y, 0);
+        }
+        
+        // Quantum gates
+        for (let g = 0; g < gates; g++) {
+          const gx = (g - 3.5) * 0.2;
+          
+          // Gate representation
+          for (let i = 0; i < 20; i++) {
+            const angle = (i / 20) * Math.PI * 2;
+            pts.push(gx + Math.cos(angle) * 0.06, y + Math.sin(angle) * 0.06, 0);
+          }
+          
+          // Entanglement lines
+          if (q < qubits - 1 && g % 2 === 0) {
+            const nextY = ((q + 1) - 2) * 0.25;
+            for (let i = 0; i < 15; i++) {
+              const t = i / 15;
+              pts.push(gx, y + t * (nextY - y), Math.sin(t * Math.PI) * 0.1);
+            }
+          }
+        }
+      }
+      
+      // Quantum superposition visualization
+      for (let i = 0; i < 100; i++) {
+        const angle = (i / 100) * Math.PI * 4;
+        const radius = 0.4;
+        const x = Math.cos(angle) * radius;
+        const y = Math.sin(angle) * radius * 0.3;
+        const z = Math.sin(angle * 2) * 0.15;
+        pts.push(x, y, z);
+      }
+      
+      return new Float32Array(pts);
+    })(),
+  },
+
+  // Blockchain Network
+  {
+    name: "BLOCKCHAIN",
+    points: (() => {
+      const pts: number[] = [];
+      
+      // Chain of blocks
+      const blocks = 7;
+      for (let b = 0; b < blocks; b++) {
+        const x = (b - 3) * 0.25;
+        
+        // Block structure
+        const blockPts = [
+          [-0.1, -0.1], [0.1, -0.1], [0.1, 0.1], [-0.1, 0.1], [-0.1, -0.1]
+        ];
+        
+        for (let i = 0; i < blockPts.length - 1; i++) {
+          for (let j = 0; j < 15; j++) {
+            const t = j / 15;
+            const px = blockPts[i][0] + t * (blockPts[i + 1][0] - blockPts[i][0]);
+            const py = blockPts[i][1] + t * (blockPts[i + 1][1] - blockPts[i][1]);
+            pts.push(x + px, py, 0);
+          }
+        }
+        
+        // Hash visualization inside block
+        for (let h = 0; h < 30; h++) {
+          const hx = x + (Math.random() - 0.5) * 0.15;
+          const hy = (Math.random() - 0.5) * 0.15;
+          pts.push(hx, hy, 0);
+        }
+        
+        // Chain connections
+        if (b < blocks - 1) {
+          for (let i = 0; i < 20; i++) {
+            const cx = x + 0.1 + (i / 20) * 0.15;
+            pts.push(cx, 0, 0);
+            
+            // Cryptographic links
+            for (let j = 0; j < 5; j++) {
+              const angle = (j / 5) * Math.PI * 2;
+              pts.push(cx + Math.cos(angle) * 0.02, Math.sin(angle) * 0.02, 0);
+            }
+          }
+        }
+      }
+      
+      // Network nodes around the chain
+      const nodes = 12;
+      for (let n = 0; n < nodes; n++) {
+        const angle = (n / nodes) * Math.PI * 2;
+        const radius = 0.6;
+        const nx = Math.cos(angle) * radius;
+        const ny = Math.sin(angle) * radius;
+        
+        // Node circle
+        for (let i = 0; i < 15; i++) {
+          const nodeAngle = (i / 15) * Math.PI * 2;
+          pts.push(nx + Math.cos(nodeAngle) * 0.05, ny + Math.sin(nodeAngle) * 0.05, 0);
+        }
+        
+        // Connections to center
+        for (let i = 0; i < 10; i++) {
+          const t = i / 10;
+          pts.push(nx * (1 - t), ny * (1 - t), 0);
+        }
+      }
+      
+      return new Float32Array(pts);
+    })(),
+  },
+
+  // Artificial Intelligence Eye/Iris Scanner
+  {
+    name: "AI_EYE",
+    points: (() => {
+      const pts: number[] = [];
+      
+      // Outer eye boundary
+      for (let i = 0; i < 150; i++) {
+        const angle = (i / 150) * Math.PI * 2;
+        const radius = 0.6 + 0.1 * Math.sin(angle * 2);
+        pts.push(Math.cos(angle) * radius, Math.sin(angle) * radius * 0.7, 0);
+      }
+      
+      // Iris rings (multiple layers)
+      for (let ring = 0; ring < 5; ring++) {
+        const radius = 0.5 - ring * 0.08;
+        for (let i = 0; i < 120; i++) {
+          const angle = (i / 120) * Math.PI * 2;
           pts.push(Math.cos(angle) * radius, Math.sin(angle) * radius, 0);
         }
       }
-      // Grid pattern inside
-      for (let x = -0.4; x <= 0.4; x += 0.1) {
-        for (let y = -0.4; y <= 0.4; y += 0.1) {
-          pts.push(x, y, 0);
-        }
-      }
-      // Pins radiating out - more detailed
-      for (let side = 0; side < 4; side++) {
-        for (let pin = 0; pin < 12; pin++) {
-          const offset = (pin - 5.5) * 0.15;
-          if (side === 0) { // top
-            for (let p = 0; p < 5; p++) {
-              pts.push(offset, 0.6 + p * 0.04, 0);
-            }
-          } else if (side === 1) { // right
-            for (let p = 0; p < 5; p++) {
-              pts.push(0.6 + p * 0.04, offset, 0);
-            }
-          } else if (side === 2) { // bottom
-            for (let p = 0; p < 5; p++) {
-              pts.push(offset, -0.6 - p * 0.04, 0);
-            }
-          } else { // left
-            for (let p = 0; p < 5; p++) {
-              pts.push(-0.6 - p * 0.04, offset, 0);
-            }
-          }
-        }
-      }
-      return new Float32Array(pts);
-    })(),
-  },
-  // Binary Tree
-  {
-    name: "BINARY_TREE",
-    points: (() => {
-      const pts: number[] = [];
-      // Root node - more points for better circle
-      for (let i = 0; i < 25; i++) {
-        const angle = (i / 25) * Math.PI * 2;
-        pts.push(Math.cos(angle) * 0.12, 0.8 + Math.sin(angle) * 0.12, 0);
-      }
-      // Level 1 - 2 nodes
-      for (let node = 0; node < 2; node++) {
-        const x = (node - 0.5) * 0.8;
-        for (let i = 0; i < 20; i++) {
-          const angle = (i / 20) * Math.PI * 2;
-          pts.push(x + Math.cos(angle) * 0.1, 0.3 + Math.sin(angle) * 0.1, 0);
-        }
-        // Connection lines - more points for smooth lines
-        for (let i = 0; i < 30; i++) {
-          const t = i / 30;
-          pts.push(t * x, 0.8 - t * 0.5, 0);
-        }
-      }
-      // Level 2 - 4 leaf nodes
-      for (let node = 0; node < 4; node++) {
-        const x = (node - 1.5) * 0.5;
-        for (let i = 0; i < 18; i++) {
-          const angle = (i / 18) * Math.PI * 2;
-          pts.push(x + Math.cos(angle) * 0.08, -0.3 + Math.sin(angle) * 0.08, 0);
-        }
-        // Connection to parent - smoother lines
-        const parentX = Math.floor(node / 2) === 0 ? -0.4 : 0.4;
-        for (let i = 0; i < 25; i++) {
-          const t = i / 25;
-          pts.push(parentX + t * (x - parentX), 0.3 - t * 0.6, 0);
-        }
-      }
-      return new Float32Array(pts);
-    })(),
-  },
-  // Git Branch Graph
-  {
-    name: "GIT_GRAPH",
-    points: (() => {
-      const pts: number[] = [];
-      // Main branch (master/main)
+      
+      // Pupil
       for (let i = 0; i < 50; i++) {
-        pts.push((i / 50) * 1.6 - 0.8, 0, 0);
-        // Commit nodes
-        if (i % 10 === 0) {
-          for (let j = 0; j < 8; j++) {
-            const angle = (j / 8) * Math.PI * 2;
-            pts.push((i / 50) * 1.6 - 0.8 + Math.cos(angle) * 0.08, Math.sin(angle) * 0.08, 0);
-          }
-        }
+        const angle = (i / 50) * Math.PI * 2;
+        pts.push(Math.cos(angle) * 0.12, Math.sin(angle) * 0.12, 0);
       }
-      // Feature branch 1
-      for (let i = 0; i < 30; i++) {
-        const t = i / 30;
-        const x = -0.3 + t * 0.8;
-        const y = 0.4 + Math.sin(t * Math.PI) * 0.2;
-        pts.push(x, y, 0);
-        if (i % 8 === 0) {
-          for (let j = 0; j < 6; j++) {
-            const angle = (j / 6) * Math.PI * 2;
-            pts.push(x + Math.cos(angle) * 0.06, y + Math.sin(angle) * 0.06, 0);
-          }
-        }
-      }
-      // Feature branch 2
-      for (let i = 0; i < 25; i++) {
-        const t = i / 25;
-        const x = 0.1 + t * 0.6;
-        const y = -0.4 - Math.sin(t * Math.PI) * 0.15;
-        pts.push(x, y, 0);
-        if (i % 7 === 0) {
-          for (let j = 0; j < 6; j++) {
-            const angle = (j / 6) * Math.PI * 2;
-            pts.push(x + Math.cos(angle) * 0.06, y + Math.sin(angle) * 0.06, 0);
-          }
-        }
-      }
-      return new Float32Array(pts);
-    })(),
-  },
-  // Neural Network
-  {
-    name: "NEURAL_NET",
-    points: (() => {
-      const pts: number[] = [];
-      const layers = [4, 6, 5, 3]; // more neurons per layer
-      const layerSpacing = 0.5;
       
-      for (let l = 0; l < layers.length; l++) {
-        const x = (l - 1.5) * layerSpacing;
-        const neurons = layers[l];
-        for (let n = 0; n < neurons; n++) {
-          const y = (n - (neurons - 1) / 2) * 0.35;
-          // Neuron circle - more detailed
-          for (let i = 0; i < 20; i++) {
-            const angle = (i / 20) * Math.PI * 2;
-            pts.push(x + Math.cos(angle) * 0.1, y + Math.sin(angle) * 0.1, 0);
-          }
-          // Connections to next layer - denser lines
-          if (l < layers.length - 1) {
-            const nextX = (l + 1 - 1.5) * layerSpacing;
-            const nextNeurons = layers[l + 1];
-            for (let nn = 0; nn < nextNeurons; nn++) {
-              const nextY = (nn - (nextNeurons - 1) / 2) * 0.35;
-              for (let i = 0; i < 15; i++) {
-                const t = i / 15;
-                pts.push(x + t * (nextX - x), y + t * (nextY - y), 0);
-              }
-            }
-          }
-        }
-      }
-      return new Float32Array(pts);
-    })(),
-  },
-  // Algorithm Flow / Flowchart
-  {
-    name: "ALGORITHM_FLOW",
-    points: (() => {
-      const pts: number[] = [];
-      // Start circle
-      for (let i = 0; i < 20; i++) {
-        const angle = (i / 20) * Math.PI * 2;
-        pts.push(Math.cos(angle) * 0.12, 0.8 + Math.sin(angle) * 0.12, 0);
-      }
-      // Arrow down
-      for (let i = 0; i < 15; i++) pts.push(0, 0.8 - (i / 15) * 0.4, 0);
-      
-      // Decision diamond
-      const diamondPts = [
-        [0, 0.3], [0.25, 0.1], [0, -0.1], [-0.25, 0.1], [0, 0.3]
-      ];
-      for (let i = 0; i < diamondPts.length - 1; i++) {
-        for (let j = 0; j < 12; j++) {
-          const t = j / 12;
-          const x = diamondPts[i][0] + t * (diamondPts[i + 1][0] - diamondPts[i][0]);
-          const y = diamondPts[i][1] + t * (diamondPts[i + 1][1] - diamondPts[i][1]);
-          pts.push(x, y, 0);
+      // Scanning lines
+      for (let scan = 0; scan < 8; scan++) {
+        const angle = (scan / 8) * Math.PI * 2;
+        for (let i = 0; i < 30; i++) {
+          const radius = (i / 30) * 0.5;
+          pts.push(Math.cos(angle) * radius, Math.sin(angle) * radius, 0);
         }
       }
       
-      // Left path
-      for (let i = 0; i < 12; i++) pts.push(-0.25, 0.1 - (i / 12) * 0.3, 0);
-      for (let i = 0; i < 15; i++) {
-        pts.push(-0.5 + (i / 15) * 0.3, -0.2, 0);
-        pts.push(-0.5 + (i / 15) * 0.3, -0.5, 0);
-        pts.push(-0.5, -0.2 - (i / 15) * 0.3, 0);
-        pts.push(-0.2, -0.2 - (i / 15) * 0.3, 0);
+      // Digital crosshairs
+      for (let i = 0; i < 60; i++) {
+        const t = (i / 60) * 0.8 - 0.4;
+        pts.push(t, 0, 0); // horizontal
+        pts.push(0, t, 0); // vertical
       }
       
-      // Right path
-      for (let i = 0; i < 12; i++) pts.push(0.25, 0.1 - (i / 12) * 0.3, 0);
-      for (let i = 0; i < 15; i++) {
-        pts.push(0.2 + (i / 15) * 0.3, -0.2, 0);
-        pts.push(0.2 + (i / 15) * 0.3, -0.5, 0);
-        pts.push(0.2, -0.2 - (i / 15) * 0.3, 0);
-        pts.push(0.5, -0.2 - (i / 15) * 0.3, 0);
-      }
-      
-      // Merge and end
-      for (let i = 0; i < 10; i++) pts.push(0, -0.5 - (i / 10) * 0.2, 0);
-      for (let i = 0; i < 15; i++) {
-        const angle = (i / 15) * Math.PI * 2;
-        pts.push(Math.cos(angle) * 0.12, -0.8 + Math.sin(angle) * 0.12, 0);
+      // HUD elements around the eye
+      const hudRadius = 0.8;
+      for (let segment = 0; segment < 12; segment++) {
+        const startAngle = (segment / 12) * Math.PI * 2;
+        const endAngle = startAngle + Math.PI / 8;
+        
+        for (let i = 0; i < 20; i++) {
+          const angle = startAngle + (i / 20) * (endAngle - startAngle);
+          pts.push(Math.cos(angle) * hudRadius, Math.sin(angle) * hudRadius, 0);
+        }
       }
       
       return new Float32Array(pts);
@@ -380,13 +462,13 @@ export default function ParticleShapes() {
             className="w-full lg:w-1/2"
           >
             <div className="font-mono text-xs text-primary mb-8 tracking-[0.2em] uppercase">
-              / CODE IN MOTION
+              / AI IN MOTION
             </div>
             <h2 className="text-[clamp(3rem,8vw,8rem)] font-serif leading-[0.9] tracking-tighter text-foreground mb-8">
-              Living <span className="text-muted-foreground italic">Syntax</span>
+              Future <span className="text-muted-foreground italic">Unleashed</span>
             </h2>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              Watch as thousands of particles coalesce into the symbols that define our craft — forming, holding, then exploding into new patterns. Code is never static; it evolves.
+              Witness the beauty of artificial intelligence and cutting-edge technology as particles dance through quantum circuits, neural networks, and blockchain architectures — the future of code visualized.
             </p>
           </motion.div>
 
