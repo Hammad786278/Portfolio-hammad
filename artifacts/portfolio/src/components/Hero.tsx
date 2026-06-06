@@ -27,18 +27,18 @@ function CanvasFallback() {
 
 function ParticleField(props: any) {
   const ref = useRef<any>();
-  const sphere = random.inSphere(new Float32Array(3000), { radius: 1.8 });
+  const sphere = random.inSphere(new Float32Array(2000), { radius: 1.8 });
 
   useFrame((state, delta) => {
     if (ref.current) {
-      ref.current.rotation.x -= delta / 15;
-      ref.current.rotation.y -= delta / 20;
+      ref.current.rotation.x -= delta / 20;
+      ref.current.rotation.y -= delta / 25;
     }
   });
 
   return (
     <group rotation={[0, 0, Math.PI / 4]}>
-      <Points ref={ref} positions={sphere as Float32Array} stride={3} frustumCulled={false} {...props}>
+      <Points ref={ref} positions={sphere as Float32Array} stride={3} frustumCulled={true} {...props}>
         <PointMaterial transparent color="#dccab0" size={0.003} sizeAttenuation={true} depthWrite={false} opacity={0.6} />
       </Points>
     </group>
@@ -61,7 +61,7 @@ function DistortedCore() {
   });
 
   return (
-    <Sphere ref={meshRef} args={[1, 64, 64]} scale={1.4}>
+    <Sphere ref={meshRef} args={[1, 48, 48]} scale={1.4}>
       <MeshDistortMaterial
         ref={matRef}
         color="#0a0a0a"
@@ -102,8 +102,10 @@ export default function Hero() {
         {webglOk ? (
           <WebGLBoundary fallback={<CanvasFallback />}>
             <Canvas
-              dpr={[1, 2]}
+              dpr={[1, 1.5]}
               camera={{ position: [0, 0, 6], fov: 45 }}
+              gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
+              frameloop="demand"
               onCreated={({ gl }) => {
                 gl.domElement.addEventListener("webglcontextlost", (e) => e.preventDefault());
               }}

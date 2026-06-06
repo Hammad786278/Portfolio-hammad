@@ -90,7 +90,9 @@ function ProjectCard({ project }: { project: any }) {
         {project.image ? (
           <img 
             src={project.image} 
-            alt={project.title} 
+            alt={project.title}
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700"
           />
         ) : (

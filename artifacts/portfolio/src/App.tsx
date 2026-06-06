@@ -2,11 +2,19 @@ import { Switch, Route, Router as WouterRouter } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import NotFound from "@/pages/not-found";
-import Portfolio from "@/pages/portfolio";
 
-const queryClient = new QueryClient();
+const Portfolio = lazy(() => import("@/pages/portfolio"));
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      staleTime: 5 * 60 * 1000,
+    },
+  },
+});
 
 function CustomCursor() {
   const [enabled, setEnabled] = useState(false);
@@ -87,10 +95,12 @@ function StatusHUD() {
 
 function Router() {
   return (
-    <Switch>
-      <Route path="/" component={Portfolio} />
-      <Route component={NotFound} />
-    </Switch>
+    <Suspense fallback={<div className="min-h-screen bg-background" />}>
+      <Switch>
+        <Route path="/" component={Portfolio} />
+        <Route component={NotFound} />
+      </Switch>
+    </Suspense>
   );
 }
 
