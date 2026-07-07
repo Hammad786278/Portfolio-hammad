@@ -4,6 +4,7 @@ import { Points, PointMaterial, Environment, Sphere, MeshDistortMaterial } from 
 import { motion } from "framer-motion";
 import * as random from "maath/random/dist/maath-random.esm";
 import { ArrowDown } from "lucide-react";
+import { useTheme } from "next-themes";
 
 class WebGLBoundary extends Component<{ children: ReactNode; fallback: ReactNode }, { hasError: boolean }> {
   state = { hasError: false };
@@ -27,6 +28,8 @@ function CanvasFallback() {
 
 function ParticleField(props: any) {
   const ref = useRef<any>();
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
   const sphere = random.inSphere(new Float32Array(2000), { radius: 1.8 });
   const mouseRef = useRef({ x: 0, y: 0 });
 
@@ -59,7 +62,7 @@ function ParticleField(props: any) {
   return (
     <group rotation={[0, 0, Math.PI / 4]}>
       <Points ref={ref} positions={sphere as Float32Array} stride={3} frustumCulled={true} {...props}>
-        <PointMaterial transparent color="#dccab0" size={0.003} sizeAttenuation={true} depthWrite={false} opacity={0.75} />
+        <PointMaterial transparent color={isDark ? "#dccab0" : "#a16207"} size={0.003} sizeAttenuation={true} depthWrite={false} opacity={0.75} />
       </Points>
     </group>
   );
@@ -68,6 +71,8 @@ function ParticleField(props: any) {
 function DistortedCore() {
   const meshRef = useRef<any>();
   const matRef = useRef<any>();
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
   const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
 
   useEffect(() => {
@@ -115,14 +120,14 @@ function DistortedCore() {
     <Sphere ref={meshRef} args={[1, 48, 48]} scale={1.4}>
       <MeshDistortMaterial
         ref={matRef}
-        color="#1a1a1a"
+        color={isDark ? "#1a1a1a" : "#f5f5f7"}
         attach="material"
         distort={0.3}
         speed={1.5}
         roughness={0.3}
         metalness={0.95}
         wireframe={true}
-        emissive="#dccab0"
+        emissive={isDark ? "#dccab0" : "#a16207"}
         emissiveIntensity={0.4}
       />
     </Sphere>

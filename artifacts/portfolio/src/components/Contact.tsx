@@ -3,6 +3,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { TorusKnot } from "@react-three/drei";
 import { motion } from "framer-motion";
 import { Terminal, Mail, Send } from "lucide-react";
+import { useTheme } from "next-themes";
 
 class WebGLBoundary extends Component<{ children: ReactNode; fallback: ReactNode }, { hasError: boolean }> {
   state = { hasError: false };
@@ -22,6 +23,8 @@ function CanvasFallback() {
 
 function RotatingKnot() {
   const meshRef = useRef<any>();
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
   
   useFrame((state) => {
     const time = state.clock.getElapsedTime();
@@ -34,11 +37,11 @@ function RotatingKnot() {
   return (
     <TorusKnot ref={meshRef} args={[1, 0.3, 100, 16]}>
       <meshStandardMaterial 
-        color="#1a1a1a"
+        color={isDark ? "#1a1a1a" : "#f5f5f7"}
         roughness={0.3}
         metalness={0.95}
         wireframe={true}
-        emissive="#dccab0"
+        emissive={isDark ? "#dccab0" : "#a16207"}
         emissiveIntensity={0.4}
       />
     </TorusKnot>

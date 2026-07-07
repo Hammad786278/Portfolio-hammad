@@ -3,6 +3,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
 import { motion } from "framer-motion";
 import * as THREE from "three";
+import { useTheme } from "next-themes";
 
 class WebGLBoundary extends Component<{ children: ReactNode; fallback: ReactNode }, { hasError: boolean }> {
   state = { hasError: false };
@@ -326,6 +327,8 @@ const shapes = [
 
 function ParticleCloud({ isMobile }: { isMobile: boolean }) {
   const pointsRef = useRef<any>();
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
   const [shapeIndex, setShapeIndex] = useState(0);
   const [phase, setPhase] = useState<"forming" | "formed" | "bursting">("forming");
   
@@ -424,12 +427,12 @@ function ParticleCloud({ isMobile }: { isMobile: boolean }) {
     <Points ref={pointsRef} positions={phase === "forming" ? randomPositions : targetShape} stride={3}>
       <PointMaterial
         transparent
-        color="#dccab0"
-        size={0.025} // Increased dot size
+        color={isDark ? "#dccab0" : "#a16207"}
+        size={0.025}
         sizeAttenuation={true}
         depthWrite={false}
-        opacity={phase === "bursting" ? 0.4 : 0.9} // Slightly higher opacity
-        blending={THREE.AdditiveBlending}
+        opacity={phase === "bursting" ? 0.4 : 0.8}
+        blending={isDark ? THREE.AdditiveBlending : THREE.NormalBlending}
       />
     </Points>
   );

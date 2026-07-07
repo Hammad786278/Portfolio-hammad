@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Terminal } from "lucide-react";
+import ThemeToggle from "./ThemeToggle";
 
 const navLinks = [
   { name: "About", href: "#about" },
@@ -88,15 +89,19 @@ export default function Navbar() {
               <span className={`absolute -bottom-2 left-0 h-px bg-primary transition-all duration-300 ${activeSection === i + 1 ? 'w-full' : 'w-0 group-hover:w-full'}`} />
             </a>
           ))}
+          <ThemeToggle />
         </nav>
 
         {/* Mobile Toggle */}
-        <button 
-          className="md:hidden text-foreground hover:text-primary transition-colors"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? <X /> : <Menu />}
-        </button>
+        <div className="flex items-center gap-4 md:hidden">
+          <ThemeToggle />
+          <button 
+            className="text-foreground hover:text-primary transition-colors"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X /> : <Menu />}
+          </button>
+        </div>
       </div>
       {/* Mobile Menu */}
       <AnimatePresence>

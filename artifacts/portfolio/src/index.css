@@ -50,35 +50,42 @@
   --app-font-mono: 'JetBrains Mono', monospace;
   --radius: 0.5rem;
 
-  --background: 240 10% 4%;
-  --foreground: 0 0% 98%;
+  --background: 240 10% 98%;
+  --foreground: 240 10% 3.9%;
 
-  --card: 240 10% 6%;
-  --card-foreground: 0 0% 98%;
-  --card-border: 38 92% 60% / 0.1;
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+  --card-border: 240 5.9% 90%;
 
-  --popover: 240 10% 6%;
-  --popover-foreground: 0 0% 98%;
-  --popover-border: 38 92% 60% / 0.1;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 3.9%;
+  --popover-border: 240 5.9% 90%;
 
-  --primary: 38 92% 60%;
-  --primary-foreground: 240 10% 4%;
+  --primary: 38 92% 50%;
+  --primary-foreground: 0 0% 98%;
 
-  --secondary: 18 95% 55%;
+  --secondary: 18 95% 48%;
   --secondary-foreground: 0 0% 98%;
 
-  --muted: 240 10% 12%;
-  --muted-foreground: 240 5% 65%;
+  --muted: 240 4.8% 95.9%;
+  --muted-foreground: 240 3.8% 46.1%;
 
-  --accent: 38 92% 60%;
-  --accent-foreground: 240 10% 4%;
+  --accent: 38 92% 50%;
+  --accent-foreground: 0 0% 98%;
 
-  --destructive: 0 84% 60%;
+  --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 0 0% 98%;
 
-  --border: 240 10% 15%;
-  --input: 240 10% 15%;
-  --ring: 38 92% 60%;
+  --border: 240 5.9% 88%;
+  --input: 240 5.9% 88%;
+  --ring: 38 92% 50%;
+
+  /* 3D Button default variables (Light Mode) */
+  --btn-face-bg: hsl(0 0% 100%);
+  --btn-border: hsl(240 5.9% 82%);
+  --btn-outline: hsl(240 5.9% 82% / 0.2);
+  --btn-depth: hsl(240 5.9% 75%);
+  --btn-shadow: rgba(0, 0, 0, 0.05);
 }
 
 .dark {
@@ -111,6 +118,13 @@
   --border: 230 10% 16%;
   --input: 230 10% 16%;
   --ring: 35 32% 78%;
+
+  /* 3D Button dark variables (Dark Mode) */
+  --btn-face-bg: hsl(230 12% 9%);
+  --btn-border: hsl(230 10% 18%);
+  --btn-outline: hsl(230 10% 18% / 0.4);
+  --btn-depth: hsl(230 10% 12%);
+  --btn-shadow: rgba(0, 0, 0, 0.4);
 }
 
 @layer base {
@@ -233,4 +247,32 @@ body {
 
 .transform-style-3d {
   transform-style: preserve-3d;
+}
+
+.btn-3d-tactile {
+  position: relative;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  background: var(--btn-face-bg);
+  border: 1px solid var(--btn-border);
+  box-shadow: 
+    0 0 0 1px var(--btn-outline),
+    0 4px 0 0 var(--btn-depth),
+    0 4px 8px var(--btn-shadow);
+  transform: translateY(0);
+}
+
+.btn-3d-tactile:hover {
+  transform: translateY(1px);
+  box-shadow: 
+    0 0 0 1px var(--btn-outline),
+    0 3px 0 0 var(--btn-depth),
+    0 3px 6px var(--btn-shadow);
+}
+
+.btn-3d-tactile:active {
+  transform: translateY(4px);
+  box-shadow: 
+    0 0 0 1px var(--btn-outline),
+    0 0px 0 0 var(--btn-depth),
+    0 0px 2px var(--btn-shadow);
 }

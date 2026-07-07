@@ -2,6 +2,7 @@ import { useRef, Suspense, Component, useState, useEffect, type ReactNode } from
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Icosahedron } from "@react-three/drei";
 import { motion } from "framer-motion";
+import { useTheme } from "next-themes";
 
 class WebGLBoundary extends Component<{ children: ReactNode; fallback: ReactNode }, { hasError: boolean }> {
   state = { hasError: false };
@@ -21,6 +22,8 @@ function CanvasFallback() {
 
 function BackgroundWireframe() {
   const meshRef = useRef<any>();
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
 
   useFrame((state) => {
     const time = state.clock.getElapsedTime();
@@ -33,10 +36,10 @@ function BackgroundWireframe() {
   return (
     <Icosahedron ref={meshRef} args={[3, 1]} position={[2, 0, -2]}>
       <meshBasicMaterial
-        color="#dccab0"
+        color={isDark ? "#dccab0" : "#a16207"}
         wireframe={true}
         transparent={true}
-        opacity={0.05}
+        opacity={isDark ? 0.05 : 0.08}
       />
     </Icosahedron>
   );

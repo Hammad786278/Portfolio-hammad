@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useEffect, useState, lazy, Suspense } from "react";
 import NotFound from "@/pages/not-found";
+import { ThemeProvider } from "next-themes";
 
 const Portfolio = lazy(() => import("@/pages/portfolio"));
 
@@ -107,16 +108,18 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-          <CustomCursor />
-          <div className="noise-bg min-h-screen">
-            <Router />
-          </div>
-          <StatusHUD />
-        </WouterRouter>
-        <Toaster />
-      </TooltipProvider>
+      <ThemeProvider attribute="class" defaultTheme="dark" disableTransitionOnChange={false}>
+        <TooltipProvider>
+          <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+            <CustomCursor />
+            <div className="noise-bg min-h-screen">
+              <Router />
+            </div>
+            <StatusHUD />
+          </WouterRouter>
+          <Toaster />
+        </TooltipProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }
