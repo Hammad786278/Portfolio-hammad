@@ -427,7 +427,7 @@ function ParticleCloud({ isMobile }: { isMobile: boolean }) {
     <Points ref={pointsRef} positions={phase === "forming" ? randomPositions : targetShape} stride={3}>
       <PointMaterial
         transparent
-        color={isDark ? "#dccab0" : "#a16207"}
+        color={isDark ? "#dccab0" : "#b38728"}
         size={0.025}
         sizeAttenuation={true}
         depthWrite={false}

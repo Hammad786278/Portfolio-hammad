@@ -62,7 +62,7 @@ function ParticleField(props: any) {
   return (
     <group rotation={[0, 0, Math.PI / 4]}>
       <Points ref={ref} positions={sphere as Float32Array} stride={3} frustumCulled={true} {...props}>
-        <PointMaterial transparent color={isDark ? "#dccab0" : "#a16207"} size={0.003} sizeAttenuation={true} depthWrite={false} opacity={0.75} />
+        <PointMaterial transparent color={isDark ? "#dccab0" : "#b38728"} size={0.003} sizeAttenuation={true} depthWrite={false} opacity={0.75} />
       </Points>
     </group>
   );
@@ -127,7 +127,7 @@ function DistortedCore() {
         roughness={0.3}
         metalness={0.95}
         wireframe={true}
-        emissive={isDark ? "#dccab0" : "#a16207"}
+        emissive={isDark ? "#dccab0" : "#b38728"}
         emissiveIntensity={0.4}
       />
     </Sphere>
@@ -248,7 +248,7 @@ export default function Hero() {
       </div>
 
       {/* Progress dots on the right edge */}
-      <div className="absolute right-6 top-1/2 -translate-y-1/2 hidden md:flex flex-col gap-3 z-20 mix-blend-difference">
+      <div className="absolute right-6 top-1/2 -translate-y-1/2 hidden md:flex flex-col gap-3 z-20 dark:mix-blend-difference">
         {Array.from({ length: 6 }).map((_, i) => (
           <div key={i} className={`w-1.5 h-1.5 rounded-full ${i === 0 ? 'bg-primary' : 'bg-muted-foreground/30'}`} />
         ))}
@@ -258,7 +258,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1.5 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-muted-foreground/40 mix-blend-difference"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-muted-foreground/40 dark:mix-blend-difference"
       >
         <span className="font-mono text-[10px] uppercase tracking-[0.3em]">Initialize sequence</span>
         <ArrowDown className="w-4 h-4 animate-bounce" />

@@ -83,7 +83,7 @@ function StatusHUD() {
   }, []);
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 pointer-events-none hidden md:flex flex-col items-end gap-1 font-mono text-[10px] text-muted-foreground/60 tracking-widest uppercase mix-blend-difference">
+    <div className="fixed bottom-6 right-6 z-50 pointer-events-none hidden md:flex flex-col items-end gap-1 font-mono text-[10px] text-muted-foreground/60 tracking-widest uppercase dark:mix-blend-difference">
       <div>LOC: Earth</div>
       <div>SYS_TIME: {time.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute:'2-digit', second:'2-digit' })}</div>
       <div className="text-primary/80 flex items-center gap-1">

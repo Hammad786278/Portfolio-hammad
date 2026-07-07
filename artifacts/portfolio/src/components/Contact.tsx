@@ -41,7 +41,7 @@ function RotatingKnot() {
         roughness={0.3}
         metalness={0.95}
         wireframe={true}
-        emissive={isDark ? "#dccab0" : "#a16207"}
+        emissive={isDark ? "#dccab0" : "#b38728"}
         emissiveIntensity={0.4}
       />
     </TorusKnot>

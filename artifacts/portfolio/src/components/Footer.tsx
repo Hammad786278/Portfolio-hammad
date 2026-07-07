@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="container mx-auto px-6 flex flex-col items-center">
         
         <div className="w-full mb-20">
-          <h1 className="text-[clamp(4rem,15vw,20rem)] font-serif leading-none text-center text-foreground uppercase tracking-tighter mix-blend-difference">
+          <h1 className="text-[clamp(4rem,15vw,20rem)] font-serif leading-none text-center text-foreground uppercase tracking-tighter dark:mix-blend-difference">
             HAMMAD
           </h1>
           <h1 className="text-[clamp(4rem,15vw,20rem)] font-serif leading-none text-center text-muted-foreground italic uppercase tracking-tighter">

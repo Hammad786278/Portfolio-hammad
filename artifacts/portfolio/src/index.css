@@ -50,41 +50,41 @@
   --app-font-mono: 'JetBrains Mono', monospace;
   --radius: 0.5rem;
 
-  --background: 240 10% 98%;
-  --foreground: 240 10% 3.9%;
+  --background: 35 12% 91%;
+  --foreground: 240 12% 10%;
 
   --card: 0 0% 100%;
-  --card-foreground: 240 10% 3.9%;
-  --card-border: 240 5.9% 90%;
+  --card-foreground: 240 12% 10%;
+  --card-border: 43 60% 30% / 0.08;
 
   --popover: 0 0% 100%;
-  --popover-foreground: 240 10% 3.9%;
-  --popover-border: 240 5.9% 90%;
+  --popover-foreground: 240 12% 10%;
+  --popover-border: 43 60% 30% / 0.08;
 
-  --primary: 38 92% 50%;
-  --primary-foreground: 0 0% 98%;
+  --primary: 43 60% 42%;
+  --primary-foreground: 35 12% 96%;
 
-  --secondary: 18 95% 48%;
-  --secondary-foreground: 0 0% 98%;
+  --secondary: 28 50% 40%;
+  --secondary-foreground: 35 12% 96%;
 
-  --muted: 240 4.8% 95.9%;
-  --muted-foreground: 240 3.8% 46.1%;
+  --muted: 35 10% 86%;
+  --muted-foreground: 240 8% 35%;
 
-  --accent: 38 92% 50%;
-  --accent-foreground: 0 0% 98%;
+  --accent: 43 60% 42%;
+  --accent-foreground: 35 12% 96%;
 
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 0 0% 98%;
 
-  --border: 240 5.9% 88%;
-  --input: 240 5.9% 88%;
-  --ring: 38 92% 50%;
+  --border: 35 10% 78%;
+  --input: 35 10% 78%;
+  --ring: 43 60% 42%;
 
   /* 3D Button default variables (Light Mode) */
   --btn-face-bg: hsl(0 0% 100%);
-  --btn-border: hsl(240 5.9% 82%);
-  --btn-outline: hsl(240 5.9% 82% / 0.2);
-  --btn-depth: hsl(240 5.9% 75%);
+  --btn-border: hsl(35 10% 75%);
+  --btn-outline: hsl(35 10% 75% / 0.2);
+  --btn-depth: hsl(35 10% 68%);
   --btn-shadow: rgba(0, 0, 0, 0.05);
 }
 
